@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Billing System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            #printSection,
+            #printSection * {
+                visibility: visible !important;
+            }
+            #printSection {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            /* Hide buttons and elements with no-print class in print */
+            button,
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2 class="mb-4">Billing System</h2>
+
+        <!-- Customer Search by Mobile -->
+        <div class="mb-3">
+            <label for="customerSearch" class="form-label">Search Customer by Mobile</label>
+            <input
+              type="text"
+              id="customerSearch"
+              class="form-control"
+              oninput="searchCustomerByMobile()"
+              placeholder="Enter mobile number"
+            />
+        </div>
+
+        <!-- Customer Info Display -->
+        <div class="mb-4" id="customerInfo">
+            <p><strong>Name:</strong> <span id="custName"></span></p>
+            <p><strong>Email:</strong> <span id="custEmail"></span></p>
+            <p><strong>Address:</strong> <span id="custAddress"></span></p>
+            <p><strong>Mobile:</strong> <span id="custMobile"></span></p>
+            <p><strong>Unit Consumed:</strong> <span id="custUnits"></span></p>
+        </div>
+
+        <!-- Item Search by ID (Supports Scanner Input) -->
+        <div class="row mb-3">
+            <div class="col-md-5">
+                <label for="itemSearch" class="form-label">Search Item by ID / Barcode</label>
+                <input
+                  type="text"
+                  id="itemSearch"
+                  class="form-control"
+                  oninput="searchItemById()"
+                  placeholder="Enter or scan item ID"
+                />
+            </div>
+            <div class="col-md-3">
+                <label for="itemQty" class="form-label">Quantity</label>
+                <input type="number" id="itemQty" class="form-control" min="1" value="1" />
+            </div>
+            <div class="col-md-2 align-self-end">
+                <button class="btn btn-primary" id="addItemBtn" onclick="addItemBySearch()" disabled>Add</button>
+            </div>
+        </div>
+
+        <!-- Item Info Display -->
+        <div id="itemInfo" class="mb-3">
+            <p><strong>Item:</strong> <span id="itemName"></span></p>
+            <p><strong>Price:</strong> <span id="itemPrice"></span></p>
+            <p><strong>Stock:</strong> <span id="itemStock"></span></p>
+        </div>
+
+        <!-- Bill Table -->
+        <div id="printSection">
+            <h4>Bill Details</h4>
+            <p><strong>Customer:</strong> <span id="printCustomerName"></span></p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th class="no-print">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="billBody"></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end">Total:</td>
+                        <td id="totalCell">0.00</td>
+                        <td class="no-print"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <button class="btn btn-success me-2" id="submitBtn" onclick="submitBill()" disabled>Submit Bill</button>
+        <button class="btn btn-secondary" id="printBtn" onclick="printAndSave()" disabled>Print Bill</button>
+    </div>
+
+    <script>
+        let customers = [];
+        let items = [];
+        let billItems = [];
+        let selectedCustomer = null;
+        let selectedItem = null;
+
+        async function fetchData() {
+            try {
+                const cRes = await fetch("http://localhost:8080/pahanaedu-service/customers");
+                customers = await cRes.json();
+
+                const iRes = await fetch("http://localhost:8080/pahanaedu-service/items");
+                items = await iRes.json();
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function updateButtonsState() {
+            const canAdd = selectedCustomer !== null && selectedItem !== null;
+            document.getElementById("addItemBtn").disabled = !canAdd;
+
+            const canSubmitOrPrint = selectedCustomer !== null && billItems.length > 0;
+            document.getElementById("submitBtn").disabled = !canSubmitOrPrint;
+            document.getElementById("printBtn").disabled = !canSubmitOrPrint;
+        }
+
+        function searchCustomerByMobile() {
+            const keyword = document.getElementById("customerSearch").value.trim();
+            selectedCustomer = customers.find(c => c.mobile.includes(keyword));
+            if (selectedCustomer) {
+                document.getElementById("custName").innerText = selectedCustomer.name;
+                document.getElementById("custEmail").innerText = selectedCustomer.email;
+                document.getElementById("custAddress").innerText = selectedCustomer.address;
+                document.getElementById("custMobile").innerText = selectedCustomer.mobile;
+                document.getElementById("custUnits").innerText = selectedCustomer.unit_consumed;
+            } else {
+                document.getElementById("custName").innerText = "";
+                document.getElementById("custEmail").innerText = "";
+                document.getElementById("custAddress").innerText = "";
+                document.getElementById("custMobile").innerText = "";
+                document.getElementById("custUnits").innerText = "";
+            }
+            updateButtonsState();
+        }
+
+        function searchItemById() {
+            const id = parseInt(document.getElementById("itemSearch").value);
+            selectedItem = items.find(i => i.id === id);
+            if (selectedItem) {
+                document.getElementById("itemName").innerText = selectedItem.name;
+                document.getElementById("itemPrice").innerText = selectedItem.price.toFixed(2);
+                document.getElementById("itemStock").innerText = selectedItem.quantity;
+            } else {
+                document.getElementById("itemName").innerText = "";
+                document.getElementById("itemPrice").innerText = "";
+                document.getElementById("itemStock").innerText = "";
+            }
+            updateButtonsState();
+        }
+
+        function addItemBySearch() {
+            if (!selectedCustomer) {
+                alert("Please select a customer first.");
+                return;
+            }
+            const quantity = parseInt(document.getElementById("itemQty").value);
+            if (!selectedItem) {
+                alert("Please scan or search a valid item.");
+                return;
+            }
+            if (quantity > selectedItem.quantity) {
+                alert("Insufficient stock for item: " + selectedItem.name);
+                return;
+            }
+
+            const existingIndex = billItems.findIndex(bi => bi.item.id === selectedItem.id);
+            if (existingIndex !== -1) {
+                const newQty = billItems[existingIndex].quantity + quantity;
+                if (newQty > selectedItem.quantity) {
+                    alert("Insufficient stock to add more quantity.");
+                    return;
+                }
+                billItems[existingIndex].quantity = newQty;
+                billItems[existingIndex].subtotal = newQty * selectedItem.price;
+            } else {
+                billItems.push({
+                    item: selectedItem,
+                    quantity,
+                    price: selectedItem.price,
+                    subtotal: selectedItem.price * quantity,
+                });
+            }
+            renderBill();
+            clearItemInput();
+            updateButtonsState();
+        }
+
+        function clearItemInput() {
+            document.getElementById("itemSearch").value = "";
+            document.getElementById("itemQty").value = 1;
+            document.getElementById("itemName").innerText = "";
+            document.getElementById("itemPrice").innerText = "";
+            document.getElementById("itemStock").innerText = "";
+            selectedItem = null;
+            updateButtonsState();
+        }
+
+        function removeItem(index) {
+            if (confirm("Are you sure you want to remove this item?")) {
+                billItems.splice(index, 1);
+                renderBill();
+                updateButtonsState();
+            }
+        }
+
+        function renderBill() {
+            const tbody = document.getElementById("billBody");
+            tbody.innerHTML = "";
+            let total = 0;
+            billItems.forEach((bi, i) => {
+                total += bi.subtotal;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${bi.item.name}</td>
+                        <td>${bi.price.toFixed(2)}</td>
+                        <td>${bi.quantity}</td>
+                        <td>${bi.subtotal.toFixed(2)}</td>
+                        <td class="no-print">
+                            <button class="btn btn-sm btn-danger" onclick="removeItem(${i})">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            document.getElementById("totalCell").innerText = total.toFixed(2);
+            document.getElementById("printCustomerName").innerText = selectedCustomer ? selectedCustomer.name : "";
+        }
+
+        async function saveBill() {
+            if (!selectedCustomer) {
+                alert("Please search and select a customer first.");
+                return false;
+            }
+            if (billItems.length === 0) {
+                alert("Add items to bill before saving.");
+                return false;
+            }
+
+            const totalAmount = billItems.reduce((sum, bi) => sum + bi.subtotal, 0);
+            const payload = {
+                customer: { id: selectedCustomer.id },
+                billItems: billItems.map(bi => ({
+                    item: { id: bi.item.id },
+                    quantity: bi.quantity,
+                    price: bi.price,
+                    subtotal: bi.subtotal
+                })),
+                totalAmount,
+                billDate: new Date().toISOString()
+            };
+
+            try {
+                const res = await fetch("http://localhost:8080/pahanaedu-service/bills", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) {
+                    alert("Bill saved successfully");
+                    await fetchData(); // refresh customers and items data (for stock, unit_consumed)
+                    return true;
+                } else {
+                    alert("Failed to save bill");
+                    return false;
+                }
+            } catch (error) {
+                console.error("Error saving bill:", error);
+                alert("Error saving bill.");
+                return false;
+            }
+        }
+
+        async function printAndSave() {
+            window.print();
+            setTimeout(async () => {
+                const saved = await saveBill();
+                if (saved) {
+                    clearAll();
+                }
+            }, 1000);
+        }
+
+        function clearAll() {
+            billItems = [];
+            selectedCustomer = null;
+            document.getElementById("customerSearch").value = "";
+            document.getElementById("custName").innerText = "";
+            document.getElementById("custEmail").innerText = "";
+            document.getElementById("custAddress").innerText = "";
+            document.getElementById("custMobile").innerText = "";
+            document.getElementById("custUnits").innerText = "";
+
+            clearItemInput();
+            renderBill();
+            updateButtonsState();
+        }
+
+        async function submitBill() {
+            const saved = await saveBill();
+            if (saved) {
+                clearAll();
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

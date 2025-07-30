@@ -9,7 +9,7 @@ package utils;
  * @author ASUS TUF
  */
 public class Item {
-        private int id;
+        public int id;
     private String name;
     private double price;
     private int quantity;
