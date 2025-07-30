@@ -9,7 +9,7 @@ package utils;
  * @author ASUS TUF
  */
 public class Customer {
-       private int id;
+       public int id;
     private String name;
     private String email;
     private String address;
