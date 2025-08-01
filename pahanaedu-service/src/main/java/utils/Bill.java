@@ -4,6 +4,7 @@
  */
 package utils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 /**
@@ -15,12 +16,15 @@ public class Bill {
     private Customer customer;
     private Date billDate;
     private double totalAmount;
-    private int units; // total units (for customer unit_consumed)
     private List<BillItem> billItems;
 
-    public Bill() {}
+    // No-arg constructor: initialize billItems to avoid null pointer issues
+    public Bill() {
+        this.billItems = new ArrayList<>();
+    }
 
-    // Getters and Setters
+    // Getters and setters
+
     public int getId() {
         return id;
     }
@@ -51,14 +55,6 @@ public class Bill {
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
-    }
-
-    public int getUnits() {
-        return units;
-    }
-
-    public void setUnits(int units) {
-        this.units = units;
     }
 
     public List<BillItem> getBillItems() {
