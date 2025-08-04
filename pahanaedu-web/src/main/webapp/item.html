@@ -11,9 +11,17 @@
     body { padding: 30px; background-color: #f8f9fa; }
     h2 { color: #0d6efd; }
     .section { margin-bottom: 30px; }
+    #logoutBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
+
+<button id="logoutBtn" class="btn btn-danger btn-sm">Logout</button>
 
 <div class="container">
   <h2>📦 Item Management Portal</h2>
@@ -103,118 +111,143 @@
 </div>
 
 <script>
-  // Change this URL to your actual backend URL for items
   const baseUrl = 'http://localhost:8080/pahanaedu-service/items';
 
-  function getAllItems() {
-    fetch(baseUrl)
-      .then(res => res.json())
-      .then(data => {
-        const table = document.getElementById("itemsTable");
-        const tbody = table.querySelector("tbody");
-        tbody.innerHTML = '';
-        data.forEach(item => {
-          const row = `<tr>
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td>$${item.price.toFixed(2)}</td>
-            <td>${item.quantity}</td>
-          </tr>`;
-          tbody.insertAdjacentHTML("beforeend", row);
-        });
-        table.style.display = data.length ? "table" : "none";
-      })
-      .catch(err => console.error("Error fetching items:", err));
+  // Check token existence, redirect if missing
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = 'login.html';
   }
 
-  function getItemById() {
-    const id = document.getElementById("getId").value;
-    fetch(`${baseUrl}/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error("Item not found");
-        return res.json();
-      })
-      .then(data => {
-        document.getElementById("itemCard").style.display = "block";
-        document.getElementById("itemId").textContent = data.id;
-        document.getElementById("itemName").textContent = data.name;
-        document.getElementById("itemPrice").textContent = data.price.toFixed(2);
-        document.getElementById("itemQuantity").textContent = data.quantity;
-        document.getElementById("itemError").textContent = "";
-      })
-      .catch(err => {
-        document.getElementById("itemCard").style.display = "none";
-        document.getElementById("itemError").textContent = err.message;
+  // Logout button handler
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+  });
+
+  function handleUnauthorized() {
+    alert('Session expired or unauthorized. Please login again.');
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+  }
+
+  async function getAllItems() {
+    try {
+      const res = await fetch(baseUrl, {
+        headers: { 'Authorization': 'Bearer ' + token }
       });
+      if (res.status === 401) return handleUnauthorized();
+      const data = await res.json();
+      const table = document.getElementById("itemsTable");
+      const tbody = table.querySelector("tbody");
+      tbody.innerHTML = '';
+      data.forEach(item => {
+        const row = `<tr>
+          <td>${item.id}</td>
+          <td>${item.name}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>${item.quantity}</td>
+        </tr>`;
+        tbody.insertAdjacentHTML("beforeend", row);
+      });
+      table.style.display = data.length ? "table" : "none";
+    } catch (err) {
+      console.error("Error fetching items:", err);
+    }
   }
 
-  function createItem() {
+  async function getItemById() {
+    const id = document.getElementById("getId").value;
+    try {
+      const res = await fetch(`${baseUrl}/${id}`, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (res.status === 401) return handleUnauthorized();
+      if (!res.ok) throw new Error("Item not found");
+      const data = await res.json();
+      document.getElementById("itemCard").style.display = "block";
+      document.getElementById("itemId").textContent = data.id;
+      document.getElementById("itemName").textContent = data.name;
+      document.getElementById("itemPrice").textContent = data.price.toFixed(2);
+      document.getElementById("itemQuantity").textContent = data.quantity;
+      document.getElementById("itemError").textContent = "";
+    } catch (err) {
+      document.getElementById("itemCard").style.display = "none";
+      document.getElementById("itemError").textContent = err.message;
+    }
+  }
+
+  async function createItem() {
     const name = document.getElementById("createName").value;
     const price = parseFloat(document.getElementById("createPrice").value);
     const quantity = parseInt(document.getElementById("createQuantity").value);
 
-    fetch(baseUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, price, quantity }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("createOutput").textContent =
-          `✅ Item "${data.name}" created with ID ${data.id}`;
-        getAllItems();
-      })
-      .catch(err => {
-        document.getElementById("createOutput").textContent = "❌ Failed to create item";
-        console.error("Create item error:", err);
+    try {
+      const res = await fetch(baseUrl, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ name, price, quantity }),
       });
+      if (res.status === 401) return handleUnauthorized();
+      const data = await res.json();
+      document.getElementById("createOutput").textContent =
+        `✅ Item "${data.name}" created with ID ${data.id}`;
+      getAllItems();
+    } catch (err) {
+      document.getElementById("createOutput").textContent = "❌ Failed to create item";
+      console.error("Create item error:", err);
+    }
   }
 
-  function updateItem() {
+  async function updateItem() {
     const id = parseInt(document.getElementById("updateId").value);
     const name = document.getElementById("updateName").value;
     const price = parseFloat(document.getElementById("updatePrice").value);
     const quantity = parseInt(document.getElementById("updateQuantity").value);
 
-    fetch(`${baseUrl}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, price, quantity }),
-    })
-      .then(res => {
-        if (!res.ok) throw new Error("Update failed");
-        return res.json();
-      })
-      .then(data => {
-        document.getElementById("updateOutput").textContent =
-          `✏️ Item with ID ${data.id} updated to "${data.name}"`;
-        getAllItems();
-      })
-      .catch(err => {
-        document.getElementById("updateOutput").textContent = err.message;
+    try {
+      const res = await fetch(`${baseUrl}/${id}`, {
+        method: "PUT",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ name, price, quantity }),
       });
+      if (res.status === 401) return handleUnauthorized();
+      if (!res.ok) throw new Error("Update failed");
+      const data = await res.json();
+      document.getElementById("updateOutput").textContent =
+        `✏️ Item with ID ${data.id} updated to "${data.name}"`;
+      getAllItems();
+    } catch (err) {
+      document.getElementById("updateOutput").textContent = err.message;
+    }
   }
 
-  function deleteItem() {
+  async function deleteItem() {
     const id = parseInt(document.getElementById("deleteId").value);
-
-    fetch(`${baseUrl}/${id}`, {
-      method: "DELETE",
-    })
-      .then(res => {
-        if (res.status === 204) {
-          document.getElementById("deleteOutput").textContent =
-            `🗑️ Item with ID ${id} deleted.`;
-          getAllItems();
-        } else {
-          document.getElementById("deleteOutput").textContent =
-            `❌ Item with ID ${id} not found.`;
-        }
-      })
-      .catch(err => {
-        document.getElementById("deleteOutput").textContent = "❌ Failed to delete item";
-        console.error("Delete item error:", err);
+    try {
+      const res = await fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: { 'Authorization': 'Bearer ' + token }
       });
+      if (res.status === 401) return handleUnauthorized();
+      if (res.status === 204) {
+        document.getElementById("deleteOutput").textContent =
+          `🗑️ Item with ID ${id} deleted.`;
+        getAllItems();
+      } else {
+        document.getElementById("deleteOutput").textContent =
+          `❌ Item with ID ${id} not found.`;
+      }
+    } catch (err) {
+      document.getElementById("deleteOutput").textContent = "❌ Failed to delete item";
+      console.error("Delete item error:", err);
+    }
   }
 </script>
 

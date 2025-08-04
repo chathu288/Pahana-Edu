@@ -9,14 +9,19 @@
   />
   <style>
     body { padding: 30px; background-color: #f8f9fa; }
-    h2 { color: #0d6efd; }
+    h2 { color: #0d6efd; display: inline-block; margin-right: 20px; }
     .section { margin-bottom: 30px; }
+    #logoutBtn {
+      float: right;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
   <h2>👥 Customer Management Portal</h2>
+  <button id="logoutBtn" class="btn btn-danger btn-sm">Logout</button>
 
   <!-- Get All Customers -->
   <div class="section">
@@ -101,103 +106,175 @@
 <script>
   const baseUrl = 'http://localhost:8080/pahanaedu-service/customers';
 
-  function getAllCustomers() {
-    fetch(baseUrl)
-      .then(res => res.json())
-      .then(data => {
-        const table = document.getElementById("customersTable");
-        const tbody = table.querySelector("tbody");
-        tbody.innerHTML = '';
-        data.forEach(c => {
-          const row = `<tr>
-            <td>${c.id}</td><td>${c.name}</td><td>${c.email}</td><td>${c.address}</td><td>${c.mobile}</td><td>${c.unit_consumed}</td>
-          </tr>`;
-          tbody.insertAdjacentHTML("beforeend", row);
-        });
-        table.style.display = data.length ? "table" : "none";
-      });
+  // Redirect if no token on page load
+  window.onload = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+    // Optionally load customers automatically
+    getAllCustomers();
+  };
+
+  // Logout button clears token and redirects
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  });
+
+  function handleUnauthorized() {
+    alert("Session expired or unauthorized. Please login again.");
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
   }
 
-  function getCustomerById() {
-    const id = document.getElementById("getId").value;
-    fetch(`${baseUrl}/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error("Customer not found");
-        return res.json();
-      })
-      .then(c => {
-        document.getElementById("customerCard").style.display = "block";
-        document.getElementById("customerId").textContent = c.id;
-        document.getElementById("customerName").textContent = c.name;
-        document.getElementById("customerEmail").textContent = c.email;
-        document.getElementById("customerAddress").textContent = c.address;
-        document.getElementById("customerMobile").textContent = c.mobile;
-        document.getElementById("customerUnits").textContent = c.unit_consumed;
-        document.getElementById("customerError").textContent = "";
-      })
-      .catch(err => {
-        document.getElementById("customerCard").style.display = "none";
-        document.getElementById("customerError").textContent = err.message;
+  async function getAllCustomers() {
+    try {
+      const res = await fetch(baseUrl, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       });
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+      if (!res.ok) throw new Error("Failed to fetch customers");
+
+      const data = await res.json();
+
+      const table = document.getElementById("customersTable");
+      const tbody = table.querySelector("tbody");
+      tbody.innerHTML = '';
+      data.forEach(c => {
+        const row = `<tr>
+          <td>${c.id}</td><td>${c.name}</td><td>${c.email}</td><td>${c.address}</td><td>${c.mobile}</td><td>${c.unit_consumed}</td>
+        </tr>`;
+        tbody.insertAdjacentHTML("beforeend", row);
+      });
+      table.style.display = data.length ? "table" : "none";
+
+    } catch (err) {
+      console.error("Error fetching customers:", err);
+    }
   }
 
-  function createCustomer() {
-    const body = {
-      name: document.getElementById("createName").value,
-      email: document.getElementById("createEmail").value,
-      address: document.getElementById("createAddress").value,
-      mobile: document.getElementById("createMobile").value,
-      unit_consumed: parseInt(document.getElementById("createUnits").value)
-    };
+  async function getCustomerById() {
+    try {
+      const id = document.getElementById("getId").value;
+      const res = await fetch(`${baseUrl}/${id}`, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      });
 
-    fetch(baseUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
-    .then(res => res.json())
-    .then(data => {
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+      if (!res.ok) throw new Error("Customer not found");
+
+      const c = await res.json();
+      document.getElementById("customerCard").style.display = "block";
+      document.getElementById("customerId").textContent = c.id;
+      document.getElementById("customerName").textContent = c.name;
+      document.getElementById("customerEmail").textContent = c.email;
+      document.getElementById("customerAddress").textContent = c.address;
+      document.getElementById("customerMobile").textContent = c.mobile;
+      document.getElementById("customerUnits").textContent = c.unit_consumed;
+      document.getElementById("customerError").textContent = "";
+
+    } catch (err) {
+      document.getElementById("customerCard").style.display = "none";
+      document.getElementById("customerError").textContent = err.message;
+    }
+  }
+
+  async function createCustomer() {
+    try {
+      const body = {
+        name: document.getElementById("createName").value,
+        email: document.getElementById("createEmail").value,
+        address: document.getElementById("createAddress").value,
+        mobile: document.getElementById("createMobile").value,
+        unit_consumed: parseInt(document.getElementById("createUnits").value)
+      };
+
+      const res = await fetch(baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+      if (!res.ok) throw new Error("Failed to create customer");
+
+      const data = await res.json();
+
       document.getElementById("createOutput").textContent =
         `✅ Customer "${data.name}" created with ID ${data.id}`;
       getAllCustomers();
-    });
+
+    } catch (err) {
+      console.error("Create error:", err);
+      document.getElementById("createOutput").textContent = "❌ " + err.message;
+    }
   }
 
-  function updateCustomer() {
-    const id = document.getElementById("updateId").value;
-    const body = {
-      name: document.getElementById("updateName").value,
-      email: document.getElementById("updateEmail").value,
-      address: document.getElementById("updateAddress").value,
-      mobile: document.getElementById("updateMobile").value,
-      unit_consumed: parseInt(document.getElementById("updateUnits").value)
-    };
+  async function updateCustomer() {
+    try {
+      const id = document.getElementById("updateId").value;
+      const body = {
+        name: document.getElementById("updateName").value,
+        email: document.getElementById("updateEmail").value,
+        address: document.getElementById("updateAddress").value,
+        mobile: document.getElementById("updateMobile").value,
+        unit_consumed: parseInt(document.getElementById("updateUnits").value)
+      };
 
-    fetch(`${baseUrl}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
-    .then(res => {
+      const res = await fetch(`${baseUrl}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
       if (!res.ok) throw new Error("Update failed");
-      return res.json();
-    })
-    .then(data => {
+
+      const data = await res.json();
+
       document.getElementById("updateOutput").textContent =
         `✏️ Customer with ID ${data.id} updated to "${data.name}"`;
       getAllCustomers();
-    })
-    .catch(err => {
-      document.getElementById("updateOutput").textContent = err.message;
-    });
+
+    } catch (err) {
+      console.error("Update error:", err);
+      document.getElementById("updateOutput").textContent = "❌ " + err.message;
+    }
   }
 
-  function deleteCustomer() {
-    const id = document.getElementById("deleteId").value;
-    fetch(`${baseUrl}/${id}`, {
-      method: "DELETE"
-    })
-    .then(res => {
+  async function deleteCustomer() {
+    try {
+      const id = document.getElementById("deleteId").value;
+      const res = await fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      });
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
       if (res.status === 204) {
         document.getElementById("deleteOutput").textContent =
           `🗑️ Customer with ID ${id} deleted.`;
@@ -206,7 +283,11 @@
         document.getElementById("deleteOutput").textContent =
           `❌ Customer with ID ${id} not found.`;
       }
-    });
+
+    } catch (err) {
+      console.error("Delete error:", err);
+      document.getElementById("deleteOutput").textContent = "❌ " + err.message;
+    }
   }
 </script>
 

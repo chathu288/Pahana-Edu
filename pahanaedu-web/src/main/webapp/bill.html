@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8" />
     <title>Billing System</title>
     <link
@@ -28,9 +29,19 @@
                 display: none !important;
             }
         }
+        #logoutBtn {
+          position: fixed;
+          top: 10px;
+          right: 10px;
+          z-index: 1000;
+        }
     </style>
+    
 </head>
 <body class="p-4">
+
+    <button id="logoutBtn" class="btn btn-danger btn-sm">Logout</button>
+
     <div class="container">
         <h2 class="mb-4">Billing System</h2>
 
@@ -119,13 +130,45 @@
         let selectedCustomer = null;
         let selectedItem = null;
 
+        const token = localStorage.getItem("token");
+
+        // Redirect if no token
+        if (!token) {
+          window.location.href = "login.html";
+        }
+
+        // Logout button
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("token");
+          window.location.href = "login.html";
+        });
+
+        function handleUnauthorized() {
+          alert("Session expired or unauthorized. Please login again.");
+          localStorage.removeItem("token");
+          window.location.href = "login.html";
+        }
+
         async function fetchData() {
             try {
-                const cRes = await fetch("http://localhost:8080/pahanaedu-service/customers");
+                const cRes = await fetch("http://localhost:8080/pahanaedu-service/customers", {
+                  headers: { Authorization: "Bearer " + token }
+                });
+                if (cRes.status === 401) {
+                  handleUnauthorized();
+                  return;
+                }
                 customers = await cRes.json();
 
-                const iRes = await fetch("http://localhost:8080/pahanaedu-service/items");
+                const iRes = await fetch("http://localhost:8080/pahanaedu-service/items", {
+                  headers: { Authorization: "Bearer " + token }
+                });
+                if (iRes.status === 401) {
+                  handleUnauthorized();
+                  return;
+                }
                 items = await iRes.json();
+
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -277,9 +320,18 @@
             try {
                 const res = await fetch("http://localhost:8080/pahanaedu-service/bills", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + token
+                    },
                     body: JSON.stringify(payload)
                 });
+
+                if (res.status === 401) {
+                  handleUnauthorized();
+                  return false;
+                }
+
                 if (res.ok) {
                     alert("Bill saved successfully");
                     await fetchData(); // refresh customers and items data (for stock, unit_consumed)
@@ -327,7 +379,9 @@
             }
         }
 
+        // Initial data fetch
         fetchData();
+
     </script>
 </body>
 </html>
