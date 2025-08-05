@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>DASHBOARD | PAHANA EDU</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+
+        <!-- App favicon -->
+         <link rel="shortcut icon" href="assets/images/225618255.png">
+
+        <!-- Theme Config Js -->
+        <script src="assets/js/config.js"></script>
+
+        <!-- Vendor css -->
+        <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+        <!-- Icons css -->
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <!-- Begin page -->
+        <div class="wrapper">
+
+              <!-- Menu -->
+            <!-- Sidenav Menu Start -->
+            <div class="sidenav-menu">
+
+                <!-- Brand Logo -->
+                <a href="#" class="logo">
+                     <span class="logo-lg"><img src="assets/images/225618255.png" style="width: 12vw;height: 18vh;" alt="logo"></span>
+                                <span class="logo-sm"><img src="assets/images/225618255.png" alt="small logo"></span>
+                       
+                     
+                </a>
+
+                <!-- Sidebar Hover Menu Toggle Button -->
+                <button class="button-sm-hover">
+                    <i class="ri-circle-line align-middle"></i>
+                </button>
+
+                <!-- Sidebar Menu Toggle Button -->
+                <button class="sidenav-toggle-button">
+                    <i class="ri-menu-5-line fs-20"></i>
+                </button>
+
+                <!-- Full Sidebar Menu Close Button -->
+                <button class="button-close-fullsidebar">
+                    <i class="ti ti-x align-middle"></i>
+                </button>
+
+                <div data-simplebar>
+
+                    <!-- User -->
+                    <div class="sidenav-user">
+                        <div class="dropdown-center text-center">
+                            <a class="topbar-link dropdown-toggle text-reset drop-arrow-none px-2" data-bs-toggle="dropdown"
+                                type="button" aria-haspopup="false" aria-expanded="false">
+                                <img src="assets/images/users/avatar-1.jpg" width="46" class="rounded-circle" alt="user-image">
+                                <span class="d-flex gap-1 sidenav-user-name my-2">
+                                    <span>
+                                        <span class="mb-0 fw-semibold lh-base fs-15">User</span>
+                                        <p class="my-0 fs-13 text-muted">Admin</p>
+                                    </span>
+
+                                    <i class="ri-arrow-down-s-line d-block sidenav-user-arrow align-middle"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome !</h6>
+                                </div>
+
+                          
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item active fw-semibold text-danger">
+                                    <i class="ri-logout-box-line me-1 fs-16 align-middle"></i>
+                                    <span class="align-middle">Sign Out</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--- Sidenav Menu -->
+                    <ul class="side-nav">
+                        <li class="side-nav-item">
+                            <a href="dashboard.html" class="side-nav-link">
+                                <span class="menu-icon"><i class="ti ti-dashboard"></i></span>
+                                <span class="menu-text"> Dashboard </span>
+                               
+                            </a>
+                        </li>
+
+  <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarCustom" aria-expanded="false" aria-controls="sidebarCustom"
+                                class="side-nav-link">
+                                <span class="menu-icon"><i class="ri-user-add-line"></i></span>
+                                <span class="menu-text"> Customers</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarCustom">
+                                <ul class="sub-menu">
+                                    <li class="side-nav-item">
+                                        <a href="add_customers.html" class="side-nav-link">
+                                            <span class="menu-text">Add New Customers</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="manage_customers.html" class="side-nav-link">
+                                            <span class="menu-text">Manage Customers</span>
+                                        </a>
+                                    </li>
+                               
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarItems" aria-expanded="false" aria-controls="sidebarItems"
+                                class="side-nav-link">
+                                <span class="menu-icon"><i class="ri-list-check"></i></span>
+                                <span class="menu-text"> Items</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarItems">
+                                <ul class="sub-menu">
+                                    <li class="side-nav-item">
+                                        <a href="add_items.html" class="side-nav-link">
+                                            <span class="menu-text">Add New Items</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="manage_items.html" class="side-nav-link">
+                                            <span class="menu-text">Manage Items</span>
+                                        </a>
+                                    </li>
+                               
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarInvoice" aria-expanded="false" aria-controls="sidebarInvoice"
+                                class="side-nav-link">
+                                <span class="menu-icon"><i class="ti ti-invoice"></i></span>
+                                <span class="menu-text"> Invoice</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarInvoice">
+                                <ul class="sub-menu">
+                                    <li class="side-nav-item">
+                                        <a href="invoice.html" class="side-nav-link">
+                                            <span class="menu-text">Invoices</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="view_invoice.html" class="side-nav-link">
+                                            <span class="menu-text">View Invoice</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="create_invoice.html" class="side-nav-link">
+                                            <span class="menu-text">Create Invoice</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+   <li class="side-nav-item">
+                            <a href="help.html" class="side-nav-link">
+                                <span class="menu-icon"><i class="ti ti-calendar"></i></span>
+                                <span class="menu-text"> Help </span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- Sidenav Menu End -->
+
+            
+            <!-- Topbar Start -->
+            <header class="app-topbar" id="header">
+                <div class="page-container topbar-menu">
+                    <div class="d-flex align-items-center gap-2">
+
+                        <!-- Brand Logo -->
+                        <a href="#" class="logo">
+                             <span class="logo-lg"><img src="assets/images/225618255.png" style="width: 15vw;height: 22vh;" alt="logo"></span>
+                               <span class="logo-sm"><img src="assets/images/225618255.png" alt="small logo"></span>
+                        </a>
+
+                        <!-- Sidebar Menu Toggle Button -->
+                        <button class="sidenav-toggle-button px-2">
+                            <i class="ri-menu-5-line fs-24"></i>
+                        </button>
+
+                        <!-- Horizontal Menu Toggle Button -->
+                        <button class="topnav-toggle-button px-2" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                            <i class="ri-menu-5-line fs-24"></i>
+                        </button>
+
+                        <!-- Topbar Page Title -->
+                        <div class="topbar-item d-none d-md-flex px-2">
+                            
+                            <div>
+                                <h4 class="page-title fs-20 fw-semibold mb-0">Create Invoice</h4>
+
+                            </div>
+                            
+
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <!-- Button Trigger Customizer Offcanvas -->
+                        <div class="topbar-item d-none d-sm-flex">
+                            <button class="topbar-link" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas"
+                                type="button">
+                                <i class="ri-settings-4-line fs-22"></i>
+                            </button>
+                        </div>
+
+                        <!-- Light/Dark Mode Button -->
+                        <div class="topbar-item d-none d-sm-flex">
+                            <button class="topbar-link" id="light-dark-mode" type="button">
+                                <i class="ri-moon-line light-mode-icon fs-22"></i>
+                                <i class="ri-sun-line dark-mode-icon fs-22"></i>
+                            </button>
+                        </div>
+
+                        <!-- User Dropdown -->
+                        <div class="topbar-item nav-user">
+                            <div class="dropdown">
+                                <a class="topbar-link dropdown-toggle drop-arrow-none px-2" data-bs-toggle="dropdown"
+                                    data-bs-offset="0,25" type="button" aria-haspopup="false" aria-expanded="false">
+                                    <img src="assets/images/users/avatar-1.jpg" width="32" class="rounded-circle me-lg-2 d-flex"
+                                        alt="user-image">
+                                    <span class="d-lg-flex flex-column gap-1 d-none">
+                                        <h5 class="my-0">User</h5>
+                                    </span>
+                                    <i class="ri-arrow-down-s-line d-none d-lg-block align-middle ms-1"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <!-- item-->
+                                    <div class="dropdown-header noti-title">
+                                        <h6 class="text-overflow m-0">Welcome !</h6>
+                                    </div>
+
+                                 
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item active fw-semibold text-danger">
+                                        <i class="ri-logout-box-line me-1 fs-16 align-middle"></i>
+                                        <span class="align-middle">Sign Out</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Topbar End -->
+
+
+            <!-- Search Modal -->
+            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content bg-transparent">
+                        <form>
+                            <div class="card mb-1">
+                                <div class="px-3 py-2 d-flex flex-row align-items-center" id="top-search">
+                                    <i class="ri-search-line fs-22"></i>
+                                    <input type="search" class="form-control border-0" id="search-modal-input"
+                                        placeholder="Search for actions, people,">
+                                    <button type="submit" class="btn p-0" data-bs-dismiss="modal" aria-label="Close">[esc]</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+
+            
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+           <div class="page-content">
+  <div class="page-container">
+
+<div class="row">
+  <div class="col-12">
+    <div class="card position-relative">
+      <form id="invoiceForm" onsubmit="return false;">
+        <div class="card-body">
+
+          <!-- Invoice Header -->
+          <div class="d-flex align-items-start justify-content-between mb-4">
+            <div class="overflow-hidden position-relative border rounded d-flex align-items-center justify-content-start px-2"
+              style="height: 60px; width: 260px;">
+              <label for="imageInput" class="position-absolute top-0 start-0 end-0 bottom-0"></label>
+              <input class="d-none" type="file" id="imageInput" />
+              <img id="preview" src="assets/images/225618255.png" style="width: 15vw; height: 10vh;" alt="Preview Image" />
+            </div>
+
+            <div class="text-end">
+              <div class="row g-1 align-items-center">
+                <div class="col-auto">
+                  <label for="invoiceNo" class="col-form-label fs-16 fw-bold">#INV</label>
+                </div>
+                <div class="col-auto">
+                  <input type="number" id="invoiceNo" class="form-control" placeholder="00001234" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoice Date & Customer Info -->
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label">Invoice Date :</label>
+              <input type="text" data-provider="flatpickr" data-date-format="d M, Y" data-default-date="today"
+                class="form-control" placeholder="Select Date" id="invoiceDate" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Customer Search (Mobile):</label>
+              <input type="text" id="customerSearch" class="form-control mb-3" placeholder="Enter mobile to search" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label class="form-label">Customer Name</label>
+              <input type="text" id="BName" class="form-control" placeholder="Full Name" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Address</label>
+              <textarea id="BAddress" rows="1" class="form-control" placeholder="Address"></textarea>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Mobile</label>
+              <input type="text" id="BNumber" class="form-control" placeholder="Phone Number" />
+            </div>
+          </div>
+
+          <!-- Item Search & Add -->
+          <div class="row mt-4 mb-3 align-items-end">
+            <div class="col-md-4">
+              <label class="form-label">Item ID Search:</label>
+              <input type="number" id="itemSearch" class="form-control" placeholder="Enter Item ID" />
+            </div>
+            <div class="col-md-2">
+              <button type="button" id="btnSearchItem" class="btn btn-secondary w-100">Search Item</button>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Quantity:</label>
+              <input type="number" id="itemQty" class="form-control" min="1" value="1" />
+            </div>
+            <div class="col-md-4">
+              <button type="button" id="addItemBtn" class="btn btn-primary w-100" disabled>Add Item to Invoice</button>
+            </div>
+          </div>
+
+          <!-- Show item info -->
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <div><strong>Item Name:</strong> <span id="itemName"></span></div>
+            </div>
+            <div class="col-md-4">
+              <div><strong>Price:</strong> $<span id="itemPrice"></span></div>
+            </div>
+            <div class="col-md-4">
+              <div><strong>Stock:</strong> <span id="itemStock"></span></div>
+            </div>
+          </div>
+
+          <!-- Invoice Products Table -->
+          <div class="table-responsive">
+            <table class="table text-center table-nowrap align-middle mb-0">
+              <thead>
+                <tr class="bg-light bg-opacity-50">
+                  <th scope="col">#</th>
+                  <th class="text-start">Product Details</th>
+                  <th>Quantity</th>
+                  <th>Unit price</th>
+                  <th>Amount</th>
+                  <th>•••</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- JS injects here -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Totals -->
+          <div class="mt-4">
+            <table class="table table-sm table-borderless align-middle mb-0 ms-auto" style="width: 300px;">
+              <tbody>
+                <tr>
+                  <td class="fw-medium">Subtotal</td>
+                  <td class="text-end">
+                    <input type="number" id="productSubtotal" class="form-control" placeholder="$0.00" readonly />
+                  </td>
+                </tr>
+                <tr>
+                  <th class="fw-bold">Total Amount</th>
+                  <th class="text-end">
+                    <input type="number" id="productTotalAmount" class="form-control" placeholder="$0.00" readonly />
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Notes -->
+          <div class="mt-3">
+            <label class="form-label" for="InvoiceNote">Note:</label>
+            <textarea class="form-control" id="InvoiceNote" placeholder="Thanks for your business" rows="3"></textarea>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-4 mb-5 d-flex justify-content-center gap-2">
+      <button id="btnSave" class="btn btn-success gap-1" disabled>
+        <i class="ti ti-device-floppy fs-16"></i> Save Invoice
+      </button>
+      <button id="btnPrint" class="btn btn-primary gap-1" disabled>
+        <i class="ti ti-eye fs-16"></i> Preview & Print
+      </button>
+    </div>
+  </div>
+</div>
+
+  </div>
+  <!-- container -->
+
+  <!-- Footer Start -->
+  <footer class="footer">
+    <div class="page-container">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start"></div>
+        <div class="col-md-6">
+          <div class="text-md-end footer-links d-none d-md-block">
+            <script>
+              document.write(new Date().getFullYear());
+            </script> © Pahana Edu - By
+            <span class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">Chathuranga</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end Footer -->
+
+</div>
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- Theme Settings -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="theme-settings-offcanvas">
+            <div class="d-flex align-items-center gap-2 px-3 py-3 offcanvas-header border-bottom border-dashed">
+                <h5 class="flex-grow-1 fs-16 fw-bold mb-0">Theme Settings</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+            <div class="offcanvas-body p-0 h-100" data-simplebar>
+                <div class="p-3 border-bottom border-dashed">
+                    <h5 class="mb-3 fs-13 text-uppercase fw-bold">Color Scheme</h5>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-bs-theme" id="layout-color-light"
+                                    value="light">
+                                <label class="form-check-label p-3 w-100 d-flex justify-content-center align-items-center"
+                                    for="layout-color-light">
+                                    <iconify-icon icon="solar:sun-bold-duotone" class="fs-32 text-muted"></iconify-icon>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Light</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-bs-theme" id="layout-color-dark"
+                                    value="dark">
+                                <label class="form-check-label p-3 w-100 d-flex justify-content-center align-items-center"
+                                    for="layout-color-dark">
+                                    <iconify-icon icon="solar:cloud-sun-2-bold-duotone" class="fs-32 text-muted"></iconify-icon>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Dark</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 border-bottom border-dashed sidebarMode">
+                    <h5 class="mb-3 fs-13 text-uppercase fw-bold">Layout Mode</h5>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-layout-mode" id="layout-mode-fluid"
+                                    value="fluid">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="layout-mode-fluid">
+                                    <div>
+                                        <span class="d-flex h-100">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 border-end flex-column p-1 px-2">
+                                                    <span class="d-block p-1 bg-dark-subtle rounded mb-1"></span>
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                </span>
+                                            </span>
+                                            <span class="flex-grow-1">
+                                                <span class="d-flex h-100 flex-column rounded-2">
+                                                    <span class="bg-light d-block p-1"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <span class="d-flex h-100 flex-column">
+                                            <span
+                                                class="bg-light d-flex p-1 align-items-center border-bottom border-secondary border-opacity-25">
+                                                <span class="d-block p-1 bg-dark-subtle rounded me-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded ms-auto"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded ms-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded ms-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded ms-1"></span>
+                                            </span>
+                                            <span class="bg-light d-block p-1"></span>
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Fluid</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-layout-mode" id="data-layout-detached"
+                                    value="detached">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="data-layout-detached">
+                                    <span class="d-flex h-100 flex-column">
+                                        <span class="bg-light d-flex p-1 align-items-center border-bottom ">
+                                            <span class="d-block p-1 bg-dark-subtle rounded me-1"></span>
+                                            <span
+                                                class="d-block border border-3 border-secondary border-opacity-25 rounded ms-auto"></span>
+                                            <span
+                                                class="d-block border border-3 border-secondary border-opacity-25 rounded ms-1"></span>
+                                            <span
+                                                class="d-block border border-3 border-secondary border-opacity-25 rounded ms-1"></span>
+                                            <span
+                                                class="d-block border border-3 border-secondary border-opacity-25 rounded ms-1"></span>
+                                        </span>
+                                        <span class="d-flex h-100 p-1 px-2">
+                                            <span class="flex-shrink-0">
+                                                <span class="bg-light d-flex h-100 flex-column p-1 px-2">
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                    <span
+                                                        class="d-block border border-3 border-secondary border-opacity-25 rounded w-100"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span class="bg-light d-block p-1 mt-auto px-2"></span>
+                                    </span>
+
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Detached</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 border-bottom border-dashed">
+                    <h5 class="mb-3 fs-16 fw-bold">Topbar Color</h5>
+
+                    <div class="row">
+                        <div class="col-3 darkMode">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-topbar-color" id="topbar-color-light"
+                                    value="light">
+                                <label class="form-check-label p-0 avatar-lg w-100 bg-light" for="topbar-color-light">
+                                    <span class="d-flex align-items-center justify-content-center h-100">
+                                        <span class="p-2 d-inline-flex shadow rounded-circle bg-white"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Light</h5>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-topbar-color" id="topbar-color-dark"
+                                    value="dark">
+                                <label class="form-check-label p-0 avatar-lg w-100 bg-light" for="topbar-color-dark">
+                                    <span class="d-flex align-items-center justify-content-center h-100">
+                                        <span class="p-2 d-inline-flex shadow rounded-circle"
+                                            style="background-color: #000000;"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Dark</h5>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-check card-radio">
+                                <input class="form-check-input" type="radio" name="data-topbar-color" id="topbar-color-brand"
+                                    value="brand">
+                                <label class="form-check-label p-0 avatar-lg w-100 bg-light" for="topbar-color-brand">
+                                    <span class="d-flex align-items-center justify-content-center h-100">
+                                        <span class="p-2 d-inline-flex shadow rounded-circle bg-primary"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Brand</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 border-bottom border-dashed">
+                    <h5 class="mb-3 fs-16 fw-bold">Menu Color</h5>
+
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-menu-color" id="sidenav-color-light"
+                                    value="light">
+                                <label class="form-check-label p-0 avatar-lg w-100 bg-light" for="sidenav-color-light">
+                                    <span class="d-flex align-items-center justify-content-center h-100">
+                                        <span class="p-2 d-inline-flex shadow rounded-circle bg-white"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Light</h5>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-menu-color" id="sidenav-color-dark"
+                                    value="dark">
+                                <label class="form-check-label p-0 avatar-lg w-100 bg-light" for="sidenav-color-dark">
+                                    <span class="d-flex align-items-center justify-content-center h-100">
+                                        <span class="p-2 d-inline-flex shadow rounded-circle"
+                                            style="background-color: #000000;"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Dark</h5>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-menu-color" id="sidenav-color-brand"
+                                    value="brand">
+                                <label class="form-check-label p-0 avatar-lg w-100 bg-light" for="sidenav-color-brand">
+                                    <span class="d-flex align-items-center justify-content-center h-100">
+                                        <span class="p-2 d-inline-flex shadow rounded-circle bg-primary"></span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Brand</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 .border-bottom .border-dashed sidebarMode">
+                    <h5 class="mb-3 fs-13 text-uppercase fw-bold">Sidebar Size</h5>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-default"
+                                    value="default">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="sidenav-size-default">
+                                    <span class="d-flex h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 border-end  flex-column p-1 px-2">
+                                                <span class="d-block p-1 bg-dark-subtle rounded mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Default</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-compact"
+                                    value="compact">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="sidenav-size-compact">
+                                    <span class="d-flex h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 border-end  flex-column p-1">
+                                                <span class="d-block p-1 bg-dark-subtle rounded mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Compact</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-small"
+                                    value="condensed">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="sidenav-size-small">
+                                    <span class="d-flex h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 border-end flex-column" style="padding: 2px;">
+                                                <span class="d-block p-1 bg-dark-subtle rounded mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Condensed</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidenav-size"
+                                    id="sidenav-size-small-hover" value="sm-hover">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="sidenav-size-small-hover">
+                                    <span class="d-flex h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="bg-light d-flex h-100 border-end flex-column" style="padding: 2px;">
+                                                <span class="d-block p-1 bg-dark-subtle rounded mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                                <span
+                                                    class="d-block border border-3 border-secondary border-opacity-25 rounded w-100 mb-1"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Hover View</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidenav-size" id="sidenav-size-full"
+                                    value="full">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="sidenav-size-full">
+                                    <span class="d-flex h-100">
+                                        <span class="flex-shrink-0">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="d-block p-1 bg-dark-subtle mb-1"></span>
+                                            </span>
+                                        </span>
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Full Layout</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check sidebar-setting card-radio">
+                                <input class="form-check-input" type="radio" name="data-sidenav-size"
+                                    id="sidenav-size-fullscreen" value="fullscreen">
+                                <label class="form-check-label p-0 avatar-xl w-100" for="sidenav-size-fullscreen">
+                                    <span class="d-flex h-100">
+                                        <span class="flex-grow-1">
+                                            <span class="d-flex h-100 flex-column">
+                                                <span class="bg-light d-block p-1"></span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <h5 class="fs-14 text-center text-muted mt-2">Hidden</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 border-bottom border-dashed d-none">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="fs-16 mb-0">Container Width</h5>
+
+                        <div class="btn-group radio" role="group">
+                            <input type="radio" class="btn-check" name="data-container-position" id="container-width-fixed"
+                                value="fixed">
+                            <label class="btn btn-sm btn-soft-primary w-sm" for="container-width-fixed">Full</label>
+
+                            <input type="radio" class="btn-check" name="data-container-position" id="container-width-scrollable"
+                                value="scrollable">
+                            <label class="btn btn-sm btn-soft-primary w-sm ms-0" for="container-width-scrollable">Boxed</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 border-bottom border-dashed d-none">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="fs-16 mb-0">Layout Position</h5>
+
+                        <div class="btn-group radio" role="group">
+                            <input type="radio" class="btn-check" name="data-layout-position" id="layout-position-fixed"
+                                value="fixed">
+                            <label class="btn btn-sm btn-soft-primary w-sm" for="layout-position-fixed">Fixed</label>
+
+                            <input type="radio" class="btn-check" name="data-layout-position" id="layout-position-scrollable"
+                                value="scrollable">
+                            <label class="btn btn-sm btn-soft-primary w-sm ms-0"
+                                for="layout-position-scrollable">Scrollable</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Vendor js -->
+        <script src="assets/js/vendor.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
+
+        <!-- Apex Chart js -->
+        <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Projects Analytics Dashboard App js -->
+        <script src="assets/js/pages/dashboard.js"></script>
+<script>
+// Globals
+let customers = [];
+let items = [];
+let billItems = [];
+let selectedCustomer = null;
+let selectedItem = null;
+const token = localStorage.getItem("token");
+
+// Redirect if no token
+if (!token) {
+  window.location.href = "login.html";
+}
+
+// Unauthorized handler
+function handleUnauthorized() {
+  alert("Session expired or unauthorized. Please login again.");
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
+}
+
+// Fetch customers & items from backend
+async function fetchData() {
+  try {
+    const cRes = await fetch("http://localhost:8080/pahanaedu-service/customers", {
+      headers: { Authorization: "Bearer " + token }
+    });
+    if (cRes.status === 401) return handleUnauthorized();
+    customers = await cRes.json();
+
+    const iRes = await fetch("http://localhost:8080/pahanaedu-service/items", {
+      headers: { Authorization: "Bearer " + token }
+    });
+    if (iRes.status === 401) return handleUnauthorized();
+    items = await iRes.json();
+
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// Search customer by mobile (trigger on input change)
+function searchCustomerByMobile() {
+  const keyword = document.getElementById("customerSearch").value.trim();
+  selectedCustomer = customers.find(c => c.mobile.includes(keyword));
+  if (selectedCustomer) {
+    document.getElementById("BName").value = selectedCustomer.name || "";
+    document.getElementById("BAddress").value = selectedCustomer.address || "";
+    document.getElementById("BNumber").value = selectedCustomer.mobile || "";
+  } else {
+    document.getElementById("BName").value = "";
+    document.getElementById("BAddress").value = "";
+    document.getElementById("BNumber").value = "";
+  }
+  updateButtonsState();
+}
+
+// Search item by ID (triggered by button click)
+function searchItemById() {
+  const id = parseInt(document.getElementById("itemSearch").value);
+  selectedItem = items.find(i => i.id === id);
+  if (selectedItem) {
+    document.getElementById("itemName").innerText = selectedItem.name;
+    document.getElementById("itemPrice").innerText = selectedItem.price.toFixed(2);
+    document.getElementById("itemStock").innerText = selectedItem.quantity;
+  } else {
+    document.getElementById("itemName").innerText = "";
+    document.getElementById("itemPrice").innerText = "";
+    document.getElementById("itemStock").innerText = "";
+  }
+  updateButtonsState();
+}
+
+// Add selected item to bill
+function addItemToBill() {
+  if (!selectedCustomer) {
+    alert("Please select a customer first.");
+    return;
+  }
+  const qtyInput = document.getElementById("itemQty");
+  const quantity = parseInt(qtyInput.value);
+  if (!selectedItem) {
+    alert("Please search/select a valid item first.");
+    return;
+  }
+  if (quantity > selectedItem.quantity) {
+    alert("Insufficient stock for item: " + selectedItem.name);
+    return;
+  }
+
+  const existingIndex = billItems.findIndex(bi => bi.item.id === selectedItem.id);
+  if (existingIndex !== -1) {
+    const newQty = billItems[existingIndex].quantity + quantity;
+    if (newQty > selectedItem.quantity) {
+      alert("Insufficient stock to add more quantity.");
+      return;
+    }
+    billItems[existingIndex].quantity = newQty;
+    billItems[existingIndex].subtotal = newQty * selectedItem.price;
+  } else {
+    billItems.push({
+      item: selectedItem,
+      quantity,
+      price: selectedItem.price,
+      subtotal: selectedItem.price * quantity,
+    });
+  }
+  renderBillItems();
+  clearItemInputs();
+  updateButtonsState();
+}
+
+// Clear item search inputs
+function clearItemInputs() {
+  document.getElementById("itemSearch").value = "";
+  document.getElementById("itemQty").value = 1;
+  document.getElementById("itemName").innerText = "";
+  document.getElementById("itemPrice").innerText = "";
+  document.getElementById("itemStock").innerText = "";
+  selectedItem = null;
+  updateButtonsState();
+}
+
+// Render bill items inside invoice products table body
+function renderBillItems() {
+  const tbody = document.querySelector("table.table tbody");
+  tbody.innerHTML = "";
+
+  billItems.forEach((bi, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <th scope="row">${index + 1}</th>
+      <td class="text-start">
+        <input type="text" class="form-control mb-1" value="${bi.item.name}" readonly />
+        <input type="text" class="form-control" placeholder="Item description" />
+      </td>
+      <td>
+        <input type="number" class="form-control product-qty" min="1" value="${bi.quantity}" data-index="${index}" />
+      </td>
+      <td>
+        <input type="number" class="form-control" value="${bi.price.toFixed(2)}" readonly />
+      </td>
+      <td>
+        <input type="number" class="form-control w-auto product-subtotal" value="${bi.subtotal.toFixed(2)}" readonly />
+      </td>
+      <td>
+        <button type="button" class="btn btn-ghost-danger btn-remove" data-index="${index}">
+          <iconify-icon icon="solar:trash-bin-trash-bold-duotone" class="fs-20"></iconify-icon>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Attach event listeners to qty inputs & remove buttons
+  document.querySelectorAll(".product-qty").forEach(input => {
+    input.addEventListener("input", e => {
+      const idx = parseInt(e.target.dataset.index);
+      let newQty = parseInt(e.target.value);
+      if (isNaN(newQty) || newQty < 1) newQty = 1;
+
+      if (newQty > billItems[idx].item.quantity) {
+        alert("Quantity exceeds available stock.");
+        e.target.value = billItems[idx].quantity;
+        return;
+      }
+
+      billItems[idx].quantity = newQty;
+      billItems[idx].subtotal = newQty * billItems[idx].price;
+      renderBillItems();
+    });
+  });
+
+  document.querySelectorAll(".btn-remove").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const idx = parseInt(e.currentTarget.dataset.index);
+      if (confirm("Remove this item?")) {
+        billItems.splice(idx, 1);
+        renderBillItems();
+        updateButtonsState();
+      }
+    });
+  });
+
+  updateTotals();
+}
+
+// Update subtotal and total amount fields
+function updateTotals() {
+  let subtotal = billItems.reduce((sum, bi) => sum + bi.subtotal, 0);
+  document.getElementById("productSubtotal").value = subtotal.toFixed(2);
+
+  // Only subtotal and total now, no shipping, discount or tax
+  document.getElementById("productTotalAmount").value = subtotal.toFixed(2);
+}
+
+// Save invoice to backend
+async function saveInvoice() {
+  if (!selectedCustomer) {
+    alert("Please select a customer.");
+    return;
+  }
+  if (billItems.length === 0) {
+    alert("Add items to invoice before saving.");
+    return;
+  }
+
+  // Prepare payload without due date, payment status/method, shipping, discount, tax
+  const payload = {
+    invoiceNo: document.getElementById("invoiceNo").value || "",
+    invoiceDate: document.getElementById("invoiceDate").value || "",
+    billingAddress: {
+      name: document.getElementById("BName").value,
+      address: document.getElementById("BAddress").value,
+      phone: document.getElementById("BNumber").value,
+    },
+    note: document.getElementById("InvoiceNote").value || "",
+    customer: { id: selectedCustomer.id },
+    billItems: billItems.map(bi => ({
+      item: { id: bi.item.id },
+      quantity: bi.quantity,
+      price: bi.price,
+      subtotal: bi.subtotal,
+    })),
+    totalAmount: parseFloat(document.getElementById("productTotalAmount").value),
+  };
+
+  try {
+    const res = await fetch("http://localhost:8080/pahanaedu-service/bills", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.status === 401) return handleUnauthorized();
+
+    if (res.ok) {
+      alert("Invoice saved successfully.");
+      await fetchData();
+      clearInvoiceForm();
+    } else {
+      alert("Failed to save invoice.");
+    }
+  } catch (error) {
+    console.error("Error saving invoice:", error);
+    alert("Error saving invoice.");
+  }
+}
+
+// Clear all invoice inputs and reset state
+function clearInvoiceForm() {
+  billItems = [];
+  selectedCustomer = null;
+  selectedItem = null;
+  document.getElementById("invoiceForm").reset();
+  document.getElementById("itemName").innerText = "";
+  document.getElementById("itemPrice").innerText = "";
+  document.getElementById("itemStock").innerText = "";
+  document.getElementById("BName").value = "";
+  document.getElementById("BAddress").value = "";
+  document.getElementById("BNumber").value = "";
+  renderBillItems();
+  updateButtonsState();
+}
+
+// Update button enable/disable status
+function updateButtonsState() {
+  document.getElementById("addItemBtn").disabled = !selectedCustomer || !selectedItem;
+  document.getElementById("btnSave").disabled = !selectedCustomer || billItems.length === 0;
+}
+
+// Event listeners
+document.getElementById("customerSearch").addEventListener("input", searchCustomerByMobile);
+document.getElementById("btnSearchItem").addEventListener("click", searchItemById);
+document.getElementById("addItemBtn").addEventListener("click", addItemToBill);
+
+document.getElementById("btnSave").addEventListener("click", saveInvoice);
+
+// Initialize data
+fetchData();
+function generateInvoiceNo() {
+  // Example: INV + current timestamp (milliseconds)
+  const invoiceNo = 'INV' + Date.now();
+  document.getElementById('invoiceNo').value = invoiceNo;
+}
+
+// Call it after fetching data or on page load
+window.onload = () => {
+  fetchData().then(() => {
+    generateInvoiceNo();
+  });
+};
+</script>
+    </body>
+
+</html>
