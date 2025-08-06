@@ -57,38 +57,7 @@
 
                 <div data-simplebar>
 
-                    <!-- User -->
-                    <div class="sidenav-user">
-                        <div class="dropdown-center text-center">
-                            <a class="topbar-link dropdown-toggle text-reset drop-arrow-none px-2" data-bs-toggle="dropdown"
-                                type="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="assets/images/users/avatar-1.jpg" width="46" class="rounded-circle" alt="user-image">
-                                <span class="d-flex gap-1 sidenav-user-name my-2">
-                                    <span>
-                                        <span class="mb-0 fw-semibold lh-base fs-15">User</span>
-                                        <p class="my-0 fs-13 text-muted">Admin</p>
-                                    </span>
-
-                                    <i class="ri-arrow-down-s-line d-block sidenav-user-arrow align-middle"></i>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <!-- item-->
-                                <div class="dropdown-header noti-title">
-                                    <h6 class="text-overflow m-0">Welcome !</h6>
-                                </div>
-
-                          
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item active fw-semibold text-danger">
-                                    <i class="ri-logout-box-line me-1 fs-16 align-middle"></i>
-                                    <span class="align-middle">Sign Out</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
+                  
                     <!--- Sidenav Menu -->
                     <ul class="side-nav">
                         <li class="side-nav-item">
@@ -160,11 +129,7 @@
                                             <span class="menu-text">Invoices</span>
                                         </a>
                                     </li>
-                                    <li class="side-nav-item">
-                                        <a href="view_invoice.html" class="side-nav-link">
-                                            <span class="menu-text">View Invoice</span>
-                                        </a>
-                                    </li>
+                           
                                     <li class="side-nav-item">
                                         <a href="create_invoice.html" class="side-nav-link">
                                             <span class="menu-text">Create Invoice</span>
@@ -243,33 +208,11 @@
                             </button>
                         </div>
 
-                        <!-- User Dropdown -->
-                        <div class="topbar-item nav-user">
-                            <div class="dropdown">
-                                <a class="topbar-link dropdown-toggle drop-arrow-none px-2" data-bs-toggle="dropdown"
-                                    data-bs-offset="0,25" type="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="assets/images/users/avatar-1.jpg" width="32" class="rounded-circle me-lg-2 d-flex"
-                                        alt="user-image">
-                                    <span class="d-lg-flex flex-column gap-1 d-none">
-                                        <h5 class="my-0">User</h5>
-                                    </span>
-                                    <i class="ri-arrow-down-s-line d-none d-lg-block align-middle ms-1"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <!-- item-->
-                                    <div class="dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Welcome !</h6>
-                                    </div>
-
-                                 
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item active fw-semibold text-danger">
-                                        <i class="ri-logout-box-line me-1 fs-16 align-middle"></i>
-                                        <span class="align-middle">Sign Out</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+               <div class="topbar-item d-none d-sm-flex">
+    <button class="btn btn-outline-danger" onclick="logout()" type="button">
+        <i class="ri-logout-box-r-line fs-22 me-1"></i> Logout
+    </button>
+</div>
                     </div>
                 </div>
             </header>
@@ -303,158 +246,157 @@
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
            <div class="page-content">
-  <div class="page-container">
+ <div class="page-container">
 
-<div class="row">
-  <div class="col-12">
-    <div class="card position-relative">
-      <form id="invoiceForm" onsubmit="return false;">
-        <div class="card-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="card position-relative">
+        <form id="invoiceForm" onsubmit="return false;">
+          <div class="card-body">
 
-          <!-- Invoice Header -->
-          <div class="d-flex align-items-start justify-content-between mb-4">
-            <div class="overflow-hidden position-relative border rounded d-flex align-items-center justify-content-start px-2"
-              style="height: 60px; width: 260px;">
-              <label for="imageInput" class="position-absolute top-0 start-0 end-0 bottom-0"></label>
-              <input class="d-none" type="file" id="imageInput" />
-              <img id="preview" src="assets/images/225618255.png" style="width: 15vw; height: 10vh;" alt="Preview Image" />
-            </div>
+            <!-- Invoice Header -->
+            <div class="d-flex align-items-start justify-content-between mb-4">
+              <div class="overflow-hidden position-relative border rounded d-flex align-items-center justify-content-start px-2"
+                style="height: 60px; width: 260px;">
+                <label for="imageInput" class="position-absolute top-0 start-0 end-0 bottom-0"></label>
+                <input class="d-none" type="file" id="imageInput" />
+                <img id="preview" src="assets/images/225618255.png" style="width: 15vw; height: 10vh;" alt="Preview Image" />
+              </div>
 
-            <div class="text-end">
-              <div class="row g-1 align-items-center">
-                <div class="col-auto">
-                  <label for="invoiceNo" class="col-form-label fs-16 fw-bold">#INV</label>
-                </div>
-                <div class="col-auto">
-                  <input type="number" id="invoiceNo" class="form-control" placeholder="00001234" />
+              <div class="text-end">
+                <div class="row g-1 align-items-center">
+                  <div class="col-auto">
+                    <label for="invoiceNo" class="col-form-label fs-16 fw-bold">#INV</label>
+                  </div>
+                  <div class="col-auto">
+                   <input type="text" id="invoiceNo" class="form-control" placeholder="00001234" />
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- Invoice Date & Customer Info -->
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Invoice Date :</label>
+                <input type="text" data-provider="flatpickr" data-date-format="d M, Y" data-default-date="today"
+                  class="form-control" placeholder="Select Date" id="invoiceDate" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Customer Search (Mobile):</label>
+                <input type="text" id="customerSearch" class="form-control mb-3" placeholder="Enter mobile to search" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Customer Name</label>
+                <input type="text" id="BName" class="form-control" placeholder="Full Name" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Address</label>
+                <textarea id="BAddress" rows="1" class="form-control" placeholder="Address"></textarea>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Mobile</label>
+                <input type="text" id="BNumber" class="form-control" placeholder="Phone Number" />
+              </div>
+            </div>
+
+            <!-- Item Search & Add -->
+            <div class="row mt-4 mb-3 align-items-end">
+              <div class="col-md-4">
+                <label class="form-label">Item ID Search:</label>
+                <input type="number" id="itemSearch" class="form-control" placeholder="Enter Item ID" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" id="btnSearchItem" class="btn btn-secondary w-100">Search Item</button>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Quantity:</label>
+                <input type="number" id="itemQty" class="form-control" min="1" value="1" />
+              </div>
+              <div class="col-md-4">
+                <button type="button" id="addItemBtn" class="btn btn-primary w-100" disabled>Add Item to Invoice</button>
+              </div>
+            </div>
+
+            <!-- Show item info -->
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <div><strong>Item Name:</strong> <span id="itemName"></span></div>
+              </div>
+              <div class="col-md-4">
+                <div><strong>Price:</strong> $<span id="itemPrice"></span></div>
+              </div>
+              <div class="col-md-4">
+                <div><strong>Stock:</strong> <span id="itemStock"></span></div>
+              </div>
+            </div>
+
+            <!-- Invoice Products Table -->
+            <div class="table-responsive">
+              <table class="table text-center table-nowrap align-middle mb-0">
+                <thead>
+                  <tr class="bg-light bg-opacity-50">
+                    <th scope="col">#</th>
+                    <th class="text-start">Product Details</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                    <th>Amount</th>
+                    <th>•••</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- JS injects here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Totals -->
+            <div class="mt-4">
+              <table class="table table-sm table-borderless align-middle mb-0 ms-auto" style="width: 300px;">
+                <tbody>
+                  <tr>
+                    <td class="fw-medium">Subtotal</td>
+                    <td class="text-end">
+                      <input type="number" id="productSubtotal" class="form-control" placeholder="$0.00" readonly />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="fw-bold">Total Amount</th>
+                    <th class="text-end">
+                      <input type="number" id="productTotalAmount" class="form-control" placeholder="$0.00" readonly />
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Notes -->
+            <div class="mt-3">
+              <label class="form-label" for="InvoiceNote">Note:</label>
+              <textarea class="form-control" id="InvoiceNote" placeholder="Thanks for your business" rows="3"></textarea>
+            </div>
+
           </div>
+        </form>
+      </div>
 
-          <!-- Invoice Date & Customer Info -->
-          <div class="row">
-            <div class="col-md-6">
-              <label class="form-label">Invoice Date :</label>
-              <input type="text" data-provider="flatpickr" data-date-format="d M, Y" data-default-date="today"
-                class="form-control" placeholder="Select Date" id="invoiceDate" />
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Customer Search (Mobile):</label>
-              <input type="text" id="customerSearch" class="form-control mb-3" placeholder="Enter mobile to search" />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <label class="form-label">Customer Name</label>
-              <input type="text" id="BName" class="form-control" placeholder="Full Name" />
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Address</label>
-              <textarea id="BAddress" rows="1" class="form-control" placeholder="Address"></textarea>
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Mobile</label>
-              <input type="text" id="BNumber" class="form-control" placeholder="Phone Number" />
-            </div>
-          </div>
-
-          <!-- Item Search & Add -->
-          <div class="row mt-4 mb-3 align-items-end">
-            <div class="col-md-4">
-              <label class="form-label">Item ID Search:</label>
-              <input type="number" id="itemSearch" class="form-control" placeholder="Enter Item ID" />
-            </div>
-            <div class="col-md-2">
-              <button type="button" id="btnSearchItem" class="btn btn-secondary w-100">Search Item</button>
-            </div>
-            <div class="col-md-2">
-              <label class="form-label">Quantity:</label>
-              <input type="number" id="itemQty" class="form-control" min="1" value="1" />
-            </div>
-            <div class="col-md-4">
-              <button type="button" id="addItemBtn" class="btn btn-primary w-100" disabled>Add Item to Invoice</button>
-            </div>
-          </div>
-
-          <!-- Show item info -->
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <div><strong>Item Name:</strong> <span id="itemName"></span></div>
-            </div>
-            <div class="col-md-4">
-              <div><strong>Price:</strong> $<span id="itemPrice"></span></div>
-            </div>
-            <div class="col-md-4">
-              <div><strong>Stock:</strong> <span id="itemStock"></span></div>
-            </div>
-          </div>
-
-          <!-- Invoice Products Table -->
-          <div class="table-responsive">
-            <table class="table text-center table-nowrap align-middle mb-0">
-              <thead>
-                <tr class="bg-light bg-opacity-50">
-                  <th scope="col">#</th>
-                  <th class="text-start">Product Details</th>
-                  <th>Quantity</th>
-                  <th>Unit price</th>
-                  <th>Amount</th>
-                  <th>•••</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- JS injects here -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Totals -->
-          <div class="mt-4">
-            <table class="table table-sm table-borderless align-middle mb-0 ms-auto" style="width: 300px;">
-              <tbody>
-                <tr>
-                  <td class="fw-medium">Subtotal</td>
-                  <td class="text-end">
-                    <input type="number" id="productSubtotal" class="form-control" placeholder="$0.00" readonly />
-                  </td>
-                </tr>
-                <tr>
-                  <th class="fw-bold">Total Amount</th>
-                  <th class="text-end">
-                    <input type="number" id="productTotalAmount" class="form-control" placeholder="$0.00" readonly />
-                  </th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Notes -->
-          <div class="mt-3">
-            <label class="form-label" for="InvoiceNote">Note:</label>
-            <textarea class="form-control" id="InvoiceNote" placeholder="Thanks for your business" rows="3"></textarea>
-          </div>
-
-        </div>
-      </form>
-    </div>
-
-    <!-- Buttons -->
-    <div class="mt-4 mb-5 d-flex justify-content-center gap-2">
-      <button id="btnSave" class="btn btn-success gap-1" disabled>
-        <i class="ti ti-device-floppy fs-16"></i> Save Invoice
-      </button>
-      <button id="btnPrint" class="btn btn-primary gap-1" disabled>
-        <i class="ti ti-eye fs-16"></i> Preview & Print
-      </button>
+      <!-- Buttons -->
+      <div class="mt-4 mb-5 d-flex justify-content-center gap-2">
+        <button id="btnSave" class="btn btn-success gap-1" disabled>
+          <i class="ti ti-device-floppy fs-16"></i> Save Invoice
+        </button>
+        <button id="btnPrint" class="btn btn-primary gap-1" disabled>
+          <i class="ti ti-eye fs-16"></i> Preview & Print
+        </button>
+      </div>
     </div>
   </div>
+
 </div>
-
-  </div>
-  <!-- container -->
-
+<!-- container -->
   <!-- Footer Start -->
   <footer class="footer">
     <div class="page-container">
@@ -917,6 +859,9 @@
 
         <!-- Projects Analytics Dashboard App js -->
         <script src="assets/js/pages/dashboard.js"></script>
+        
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // Globals
 let customers = [];
@@ -1051,7 +996,6 @@ function renderBillItems() {
       <th scope="row">${index + 1}</th>
       <td class="text-start">
         <input type="text" class="form-control mb-1" value="${bi.item.name}" readonly />
-        <input type="text" class="form-control" placeholder="Item description" />
       </td>
       <td>
         <input type="number" class="form-control product-qty" min="1" value="${bi.quantity}" data-index="${index}" />
@@ -1113,7 +1057,7 @@ function updateTotals() {
   document.getElementById("productTotalAmount").value = subtotal.toFixed(2);
 }
 
-// Save invoice to backend
+// Save invoice to backend (original saveInvoice - with alerts & reload)
 async function saveInvoice() {
   if (!selectedCustomer) {
     alert("Please select a customer.");
@@ -1124,7 +1068,6 @@ async function saveInvoice() {
     return;
   }
 
-  // Prepare payload without due date, payment status/method, shipping, discount, tax
   const payload = {
     invoiceNo: document.getElementById("invoiceNo").value || "",
     invoiceDate: document.getElementById("invoiceDate").value || "",
@@ -1160,6 +1103,7 @@ async function saveInvoice() {
       alert("Invoice saved successfully.");
       await fetchData();
       clearInvoiceForm();
+      location.reload();
     } else {
       alert("Failed to save invoice.");
     }
@@ -1167,6 +1111,91 @@ async function saveInvoice() {
     console.error("Error saving invoice:", error);
     alert("Error saving invoice.");
   }
+}
+
+// Silent save version for preview button (no alerts, no reload)
+async function saveInvoiceSilent() {
+  if (!selectedCustomer || billItems.length === 0) {
+    return false;
+  }
+
+  const payload = {
+    invoiceNo: document.getElementById("invoiceNo").value || "",
+    invoiceDate: document.getElementById("invoiceDate").value || "",
+    billingAddress: {
+      name: document.getElementById("BName").value,
+      address: document.getElementById("BAddress").value,
+      phone: document.getElementById("BNumber").value,
+    },
+    note: document.getElementById("InvoiceNote").value || "",
+    customer: { id: selectedCustomer.id },
+    billItems: billItems.map(bi => ({
+      item: { id: bi.item.id },
+      quantity: bi.quantity,
+      price: bi.price,
+      subtotal: bi.subtotal,
+    })),
+    totalAmount: parseFloat(document.getElementById("productTotalAmount").value),
+  };
+
+  try {
+    const res = await fetch("http://localhost:8080/pahanaedu-service/bills", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return false;
+    }
+
+    return res.ok;
+  
+  } catch (error) {
+    console.error("Error saving invoice silently:", error);
+    return false;
+  }
+}
+
+async function previewInvoice() {
+  if (!selectedCustomer) {
+    alert("Please select a customer first.");
+    return;
+  }
+  if (billItems.length === 0) {
+    alert("Add items to invoice before preview.");
+    return;
+  }
+
+  const saved = await saveInvoiceSilent();
+  if (!saved) {
+    alert("Failed to save invoice. Cannot preview.");
+    return;
+  }
+
+  const invoiceData = {
+    invoiceNo: document.getElementById("invoiceNo").value,
+    invoiceDate: document.getElementById("invoiceDate").value,
+    billingAddress: {
+      name: document.getElementById("BName").value,
+      address: document.getElementById("BAddress").value,
+      phone: document.getElementById("BNumber").value,
+    },
+    note: document.getElementById("InvoiceNote").value,
+    customer: selectedCustomer,
+    billItems: billItems,
+    totalAmount: parseFloat(document.getElementById("productTotalAmount").value),
+  };
+
+  // Save invoice data to localStorage
+  localStorage.setItem("previewInvoiceData", JSON.stringify(invoiceData));
+
+  // Redirect to preview page in same tab
+  window.location.href = "view_invoice.html";
 }
 
 // Clear all invoice inputs and reset state
@@ -1187,32 +1216,72 @@ function clearInvoiceForm() {
 
 // Update button enable/disable status
 function updateButtonsState() {
-  document.getElementById("addItemBtn").disabled = !selectedCustomer || !selectedItem;
-  document.getElementById("btnSave").disabled = !selectedCustomer || billItems.length === 0;
+  const hasItems = billItems.length > 0;
+  const hasCustomer = !!selectedCustomer;
+
+  document.getElementById("addItemBtn").disabled = !hasCustomer || !selectedItem;
+  document.getElementById("btnSave").disabled = !hasCustomer || !hasItems;
+
+  // Enable Preview & Print same as Save button
+  document.getElementById("btnPrint").disabled = !hasCustomer || !hasItems;
 }
 
 // Event listeners
 document.getElementById("customerSearch").addEventListener("input", searchCustomerByMobile);
 document.getElementById("btnSearchItem").addEventListener("click", searchItemById);
 document.getElementById("addItemBtn").addEventListener("click", addItemToBill);
-
 document.getElementById("btnSave").addEventListener("click", saveInvoice);
+document.getElementById("btnPrint").addEventListener("click", previewInvoice);
 
 // Initialize data
 fetchData();
-function generateInvoiceNo() {
-  // Example: INV + current timestamp (milliseconds)
-  const invoiceNo = 'INV' + Date.now();
-  document.getElementById('invoiceNo').value = invoiceNo;
+
+async function generateInvoiceNo() {
+  try {
+    const res = await fetch("http://localhost:8080/pahanaedu-service/bills/lastid", {
+      headers: { Authorization: "Bearer " + token }
+    });
+    if (!res.ok) throw new Error("Failed to fetch last bill id");
+
+    const data = await res.json();
+    const lastId = data.lastId || 0;
+    const nextId = lastId + 1;
+    // Format invoice number e.g. INV000123
+    const invoiceNo = "INV" + nextId.toString().padStart(6, '0');
+    document.getElementById("invoiceNo").value = invoiceNo;
+  } catch (err) {
+    console.error(err);
+    // fallback if API call fails
+    document.getElementById("invoiceNo").value = "INV" + Date.now();
+  }
 }
 
-// Call it after fetching data or on page load
+// Call after page load
 window.onload = () => {
   fetchData().then(() => {
     generateInvoiceNo();
   });
 };
+  function logout() {
+    Swal.fire({
+        title: 'Are you sure you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, Logout'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Clear token from local storage
+            localStorage.removeItem("token");
+            // Redirect to login page
+            window.location.href = "login.html";
+        }
+    });
+}
 </script>
+
+
     </body>
 
 </html>

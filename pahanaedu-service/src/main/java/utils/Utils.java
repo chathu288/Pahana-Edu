@@ -482,4 +482,21 @@ public boolean authenticateUser(String username, String password) {
         return false;
     }
 }
+  public int getLastBillId() {
+        String query = "SELECT MAX(id) AS maxId FROM bills";
+        int lastId = 0;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                lastId = rs.getInt("maxId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
+
 }
