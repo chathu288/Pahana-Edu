@@ -22,6 +22,7 @@
 
         <!-- Icons css -->
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
 
     <body>
@@ -160,11 +161,7 @@
                                             <span class="menu-text">Invoices</span>
                                         </a>
                                     </li>
-                                    <li class="side-nav-item">
-                                        <a href="view_invoice.html" class="side-nav-link">
-                                            <span class="menu-text">View Invoice</span>
-                                        </a>
-                                    </li>
+                              
                                     <li class="side-nav-item">
                                         <a href="create_invoice.html" class="side-nav-link">
                                             <span class="menu-text">Create Invoice</span>
@@ -302,208 +299,117 @@
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
             <div class="page-content">
-                <div class="page-container">
+  <div class="page-container">
 
-                 <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Invoice Logo-->
-                                <div class="d-flex align-items-start justify-content-between mb-4">
-                                    <div>
-                                        <img src="assets/images/225618255.png" style="width: 15vw;height: 10vh;" alt="dark logo" height="24">
-                                    </div>
-                                    <div class="text-end">
-                                        <span class="badge bg-success-subtle text-success px-1 fs-12 mb-3">Paid</span>
-                                        <h3 class="m-0 fw-bolder fs-20">Invoice: #INV7896</h3>
-                                    </div>
-                                </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card" id="invoiceCard">
+        <div class="card-body">
+          <!-- Invoice Header -->
+          <div class="d-flex align-items-start justify-content-between mb-4">
+            <div>
+              <img src="assets/images/225618255.png" style="width: 15vw;height: 10vh;" alt="Logo">
+            </div>
+            <div class="text-end">
+              <span class="badge bg-success-subtle text-success px-1 fs-12 mb-3">Paid</span>
+              <h3 class="m-0 fw-bolder fs-20" id="invoiceNoHeader">Invoice: #</h3>
+            </div>
+          </div>
 
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mb-4">
-                                            <h5 class="fw-bold pb-1 mb-2 fs-14"> Invoice From : </h5>
-                                            <h6 class="fs-14 mb-2">Chris Keller</h6>
-                                            <h6 class="fs-14 text-muted mb-2 lh-base">1055 Station Street Fremont,
-                                                <br /> CA - 94539
-                                            </h6>
-                                            <h6 class="fs-14 text-muted mb-0">Phone: 510-875-0005</h6>
-                                        </div>
-                                        <div>
-                                            <h5 class="fw-bold fs-14"> Invoice Date : </h5>
-                                            <h6 class="fs-14 text-muted">12 Apr 2024</h6>
-                                        </div>
-                                    </div>
+          <!-- Address Section -->
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-4">
+                <h5 class="fw-bold pb-1 mb-2 fs-14">Invoice From:</h5>
+                <h6 class="fs-14 mb-2">Pahana Edu</h6>
+                <h6 class="fs-14 text-muted mb-2 lh-base">Colombo<br>Sri Lanka</h6>
+                <h6 class="fs-14 text-muted mb-0">Phone: 0768770401</h6>
+              </div>
+              <div>
+                <h5 class="fw-bold fs-14">Invoice Date:</h5>
+                <h6 class="fs-14 text-muted" id="invoiceDate"></h6>
+              </div>
+            </div>
 
-                                    <div class="col-4">
-                                        <div class="mb-4">
-                                            <h5 class="fw-bold pb-1 mb-2 fs-14"> Bill To : </h5>
-                                            <h6 class="fs-14 mb-2">Lucian Obrien</h6>
-                                            <h6 class="fs-14 text-muted mb-2 lh-base">1147 Rohan Drive Suite,
-                                                <br />Burlington, VT / 82021
-                                            </h6>
-                                            <h6 class="fs-14 text-muted mb-0">Phone: 904-966-2836</h6>
-                                        </div>
-                                        <div>
-                                            <h5 class="fw-bold fs-14"> Due Date : </h5>
-                                            <h6 class="fs-14 text-muted">28 Apr 2024</h6>
-                                        </div>
-                                    </div>
+            <div class="col-4">
+              <div class="mb-4">
+                <h5 class="fw-bold pb-1 mb-2 fs-14">Bill To:</h5>
+                <h6 class="fs-14 mb-2" id="BName"></h6>
+                <h6 class="fs-14 text-muted mb-2 lh-base" id="BAddress"></h6>
+                <h6 class="fs-14 text-muted mb-0" id="BNumber"></h6>
+              </div>
+            </div>
 
-                                    <div class="col-4 text-end">
-                                        <img src="assets/images/png/qr-code.png" alt="qr-code-image" height="100">
-                                    </div>
-                                </div>
-                            </div>
+            <div class="col-4 text-end">
+              <img src="assets/images/png/qr-code.png" alt="QR Code" height="100">
+            </div>
+          </div>
+        </div>
 
-                            <div class="mt-4">
-                                <div class="table-responsive">
-                                    <table class="table text-center table-nowrap align-middle mb-0">
-                                        <thead>
-                                            <tr class="bg-light bg-opacity-50">
-                                                <th class="border-0" scope="col" style="width: 50px;">#</th>
-                                                <th class="text-start border-0" scope="col">Product Details</th>
-                                                <th class="border-0" scope="col">Quantity</th>
-                                                <th class="border-0" scope="col">Unit price</th>
-                                                <th class="text-end border-0" scope="col" class="text-end">Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="products-list">
-                                            <tr>
-                                                <th scope="row">01</th>
-                                                <td class="text-start">
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <iconify-icon icon="logos:react" class="fs-22"></iconify-icon>
-                                                        <div>
-                                                            <span class="fw-medium">React Development</span>
-                                                            <p class="text-muted mb-0">(Advance payment for 25 hours)
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>25</td>
-                                                <td>$40.00</td>
-                                                <td class="text-end">$1000.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">02</th>
-                                                <td class="text-start">
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <iconify-icon icon="logos:openai-icon"
-                                                            class="fs-22"></iconify-icon>
-                                                        <div>
-                                                            <span class="fw-medium">OpenAI Support</span>
-                                                            <p class="text-muted mb-0">(Small help for bug fixes)</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>01</td>
-                                                <td>$200.00</td>
-                                                <td class="text-end">$200.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">03</th>
-                                                <td class="text-start">
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <iconify-icon icon="logos:apple-app-store"
-                                                            class="fs-22"></iconify-icon>
-                                                        <div>
-                                                            <span class="fw-medium">Custom App Development - iOS</span>
-                                                            <p class="text-muted mb-0">(Phase 1 payment)</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>01</td>
-                                                <td>$1200.00</td>
-                                                <td class="text-end">$1200.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">04</th>
-                                                <td class="text-start">
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <iconify-icon icon="logos:digital-ocean-icon"
-                                                            class="fs-22"></iconify-icon>
-                                                        <div>
-                                                            <span class="fw-medium">Digital Ocean Server Setup</span>
-                                                            <p class="text-muted mb-0">(Fix amount)</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>01</td>
-                                                <td>$199.00</td>
-                                                <td class="text-end">$199.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table><!--end table-->
-                                </div>
-                                <div>
-                                    <table class="table table-nowrap align-middle mb-0 ms-auto" style="width:335px">
-                                        <tbody>
-                                            <tr>
-                                                <td class="fw-medium">Subtotal</td>
-                                                <td class="text-end">$2,599.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-medium">Shipping <small class="text-muted">(Free)</small>
-                                                </td>
-                                                <td class="text-end">-</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-medium">Discount <small class="text-muted">(10%)</small>
-                                                </td>
-                                                <td class="text-end">-$259.90</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-medium">Tax <small class="text-muted">(5%)</small></td>
-                                                <td class="text-end">$116.95</td>
-                                            </tr>
-                                            <tr class="border-top border-top-dashed fs-16">
-                                                <td class="fw-bold">Total Amount</td>
-                                                <td class="fw-bold text-end">$2456.05</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <!--end table-->
-                                </div>
-                            </div>
+        <!-- Invoice Items Table -->
+        <div class="mt-4">
+          <div class="table-responsive">
+            <table class="table text-center table-nowrap align-middle mb-0">
+              <thead>
+                <tr class="bg-light bg-opacity-50">
+                  <th scope="col">#</th>
+                  <th class="text-start">Product Details</th>
+                  <th>Quantity</th>
+                  <th>Unit price</th>
+                  <th class="text-end">Amount</th>
+                </tr>
+              </thead>
+              <tbody id="products-list">
+                <!-- JS will insert invoice rows here -->
+              </tbody>
+            </table>
+          </div>
 
-                            <div class="card-body">
-                                <div class="bg-body p-2 rounded-2 mt-4">
-                                    <p class="mb-0"><span class="fs-12 fw-bold text-uppercase">Note : </span>Payment for
-                                        all accounts is due within 7 days from the date of invoice receipt. Payments can
-                                        be made via cheque, credit card, or direct online payment. Failure to settle the
-                                        account within 7 days will result in the agreed quoted fee, as noted above,
-                                        being charged against the credit details provided as confirmation of the work
-                                        undertaken.</p>
-                                </div>
+          <div>
+            <table class="table table-nowrap align-middle mb-0 ms-auto" style="width:335px">
+              <tbody>
+                <tr>
+                  <td class="fw-medium">Subtotal</td>
+                  <td class="text-end" id="subtotalAmount">$0.00</td>
+                </tr>
+                <tr class="border-top border-top-dashed fs-16">
+                  <td class="fw-bold">Total Amount</td>
+                  <td class="fw-bold text-end" id="totalAmount">$0.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-                                <div class="mt-4">
-                                    <p class="mb-2 pb-2"><b>Congratulations on your recent purchase!</b> It has been our
-                                        pleasure to serve you, and we hope we see you again soon.</p>
+        <div class="card-body">
+          <div class="bg-body p-2 rounded-2 mt-4">
+            <p class="mb-0">
+              <span class="fs-12 fw-bold text-uppercase">Note:</span>
+              <span id="InvoiceNote"></span>
+            </p>
+          </div>
 
-                                    <div class="d-inline-block">
-                                        <img src="assets/images/png/signature.png" alt="signature" height="32">
-                                        <h5 class="mb-0 mt-2">Authorized Sign</h5>
-                                    </div>
-                                </div>
-                            </div> <!-- end card-body-->
-                        </div>
+          <div class="mt-4">
+            <p class="mb-2 pb-2"><b>Thank you for your business!</b></p>
+            <div class="d-inline-block">
+              <img src="assets/images/png/signature.png" alt="signature" height="32">
+              <h5 class="mb-0 mt-2">Authorized Sign</h5>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                        <div class="d-print-none mb-5">
-                            <div class="d-flex justify-content-center gap-2">
-                                <a href="javascript:window.print()" class="btn btn-primary"><i
-                                        class="ti ti-printer me-1"></i> Print</a>
-                                <a href="javascript: void(0);" class="btn btn-secondary"><i class="ti ti-send me-1"></i>
-                                    Send</a>
-                                <a href="javascript: void(0);" class="btn btn-info"><i class="ti ti-download me-1"></i>
-                                    Download</a>
-                            </div>
-                        </div>
-                        <!-- end buttons -->
-                    </div>
-                </div>
+      <!-- Action Buttons -->
+      <div class="d-print-none mb-5">
+        <div class="d-flex justify-content-center gap-2">
+          <button onclick="printInvoice()" class="btn btn-primary"><i class="ti ti-printer me-1"></i> Print</button>
+          <button onclick="downloadInvoicePDF()" class="btn btn-info"><i class="ti ti-download me-1"></i> Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                </div> <!-- container -->
 
                 <!-- Footer Start -->
                 <footer class="footer">
@@ -967,7 +873,63 @@
 
         <!-- Projects Analytics Dashboard App js -->
         <script src="assets/js/pages/dashboard.js"></script>
+<!-- JavaScript -->
+<script>
+  const invoiceData = JSON.parse(localStorage.getItem("previewInvoiceData"));
 
+  if (!invoiceData) {
+    alert("No invoice data found.");
+    window.location.href = "create_invoice.html";
+  }
+
+  // Fill invoice details
+  document.getElementById("invoiceNoHeader").innerText = "Invoice: #" + invoiceData.invoiceNo;
+  document.getElementById("invoiceDate").innerText = invoiceData.invoiceDate;
+  document.getElementById("BName").innerText = invoiceData.billingAddress.name;
+  document.getElementById("BAddress").innerText = invoiceData.billingAddress.address;
+  document.getElementById("BNumber").innerText = "Phone: " + invoiceData.billingAddress.phone;
+  document.getElementById("InvoiceNote").innerText = invoiceData.note;
+
+  document.getElementById("subtotalAmount").innerText = "$" + invoiceData.totalAmount.toFixed(2);
+  document.getElementById("totalAmount").innerText = "$" + invoiceData.totalAmount.toFixed(2);
+
+  const tableBody = document.getElementById("products-list");
+  invoiceData.billItems.forEach((item, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <th scope="row">${index + 1}</th>
+      <td class="text-start">${item.item.name}</td>
+      <td>${item.quantity}</td>
+      <td>$${item.price.toFixed(2)}</td>
+      <td class="text-end">$${item.subtotal.toFixed(2)}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  // Download PDF
+  function downloadInvoicePDF() {
+    const element = document.getElementById("invoiceCard");
+    const opt = {
+      margin:       0.3,
+      filename:     `${invoiceData.invoiceNo}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+  }
+
+  // Print & redirect
+  function printInvoice() {
+    window.print();
+  }
+
+  // After print: Redirect
+  window.onafterprint = () => {
+        localStorage.removeItem("previewInvoiceData");
+    window.location.href = "create_invoice.html";
+  };
+</script>
     </body>
 
 </html>

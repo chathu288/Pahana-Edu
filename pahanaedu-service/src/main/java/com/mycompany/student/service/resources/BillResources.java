@@ -4,12 +4,14 @@
  */
 package com.mycompany.student.service.resources;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import utils.Bill;
 import utils.Utils;
 import java.util.Date;
+import java.util.List;
 /**
  *
  * @author ASUS TUF
@@ -39,4 +41,17 @@ public class BillResources {
                     .build();
         }
     }
+     // New endpoint to get last bill ID
+    @GET
+    @Path("lastid")
+    public Response getLastBillId() {
+        int lastId = utils.getLastBillId();
+        JsonObject json = new JsonObject();
+        json.addProperty("lastId", lastId);
+        return Response.ok(json.toString()).build();
+    }
+
+ 
+    
+
 }
