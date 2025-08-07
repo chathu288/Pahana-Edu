@@ -22,6 +22,7 @@
 
         <!-- Icons css -->
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
@@ -863,24 +864,34 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+   const token = localStorage.getItem("token");
+
+        // Redirect if no token
+        if (!token) {
+          window.location.href = "login.html";
+        }
+
+</script>
+<script>
 // Globals
 let customers = [];
 let items = [];
 let billItems = [];
 let selectedCustomer = null;
 let selectedItem = null;
-const token = localStorage.getItem("token");
 
-// Redirect if no token
-if (!token) {
-  window.location.href = "login.html";
-}
 
 // Unauthorized handler
 function handleUnauthorized() {
-  alert("Session expired or unauthorized. Please login again.");
-  localStorage.removeItem("token");
-  window.location.href = "login.html";
+  Swal.fire({
+    icon: 'warning',
+    title: 'Session expired or unauthorized',
+    text: 'Please login again.',
+    confirmButtonText: 'OK'
+  }).then(() => {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  });
 }
 
 // Fetch customers & items from backend
@@ -919,7 +930,7 @@ function searchCustomerByMobile() {
   updateButtonsState();
 }
 
-// Search item by ID (triggered by button click)
+// Search item by ID (triggered by button click or typing)
 function searchItemById() {
   const id = parseInt(document.getElementById("itemSearch").value);
   selectedItem = items.find(i => i.id === id);
@@ -938,17 +949,32 @@ function searchItemById() {
 // Add selected item to bill
 function addItemToBill() {
   if (!selectedCustomer) {
-    alert("Please select a customer first.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Customer Selected',
+      text: 'Please select a customer first.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
   const qtyInput = document.getElementById("itemQty");
   const quantity = parseInt(qtyInput.value);
   if (!selectedItem) {
-    alert("Please search/select a valid item first.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Item Selected',
+      text: 'Please search/select a valid item first.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
   if (quantity > selectedItem.quantity) {
-    alert("Insufficient stock for item: " + selectedItem.name);
+    Swal.fire({
+      icon: 'error',
+      title: 'Insufficient Stock',
+      text: `Insufficient stock for item: ${selectedItem.name}`,
+      confirmButtonText: 'OK'
+    });
     return;
   }
 
@@ -956,7 +982,12 @@ function addItemToBill() {
   if (existingIndex !== -1) {
     const newQty = billItems[existingIndex].quantity + quantity;
     if (newQty > selectedItem.quantity) {
-      alert("Insufficient stock to add more quantity.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Stock Limit Exceeded',
+        text: 'Insufficient stock to add more quantity.',
+        confirmButtonText: 'OK'
+      });
       return;
     }
     billItems[existingIndex].quantity = newQty;
@@ -1023,7 +1054,12 @@ function renderBillItems() {
       if (isNaN(newQty) || newQty < 1) newQty = 1;
 
       if (newQty > billItems[idx].item.quantity) {
-        alert("Quantity exceeds available stock.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Quantity Exceeds Stock',
+          text: 'Quantity exceeds available stock.',
+          confirmButtonText: 'OK'
+        });
         e.target.value = billItems[idx].quantity;
         return;
       }
@@ -1037,11 +1073,22 @@ function renderBillItems() {
   document.querySelectorAll(".btn-remove").forEach(btn => {
     btn.addEventListener("click", e => {
       const idx = parseInt(e.currentTarget.dataset.index);
-      if (confirm("Remove this item?")) {
-        billItems.splice(idx, 1);
-        renderBillItems();
-        updateButtonsState();
-      }
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Remove this item?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, remove it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          billItems.splice(idx, 1);
+          renderBillItems();
+          updateButtonsState();
+          Swal.fire('Removed!', 'The item has been removed.', 'success');
+        }
+      });
     });
   });
 
@@ -1060,11 +1107,21 @@ function updateTotals() {
 // Save invoice to backend (original saveInvoice - with alerts & reload)
 async function saveInvoice() {
   if (!selectedCustomer) {
-    alert("Please select a customer.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Customer Selected',
+      text: 'Please select a customer.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
   if (billItems.length === 0) {
-    alert("Add items to invoice before saving.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Items Added',
+      text: 'Add items to invoice before saving.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
 
@@ -1100,16 +1157,29 @@ async function saveInvoice() {
     if (res.status === 401) return handleUnauthorized();
 
     if (res.ok) {
-      alert("Invoice saved successfully.");
-      await fetchData();
-      clearInvoiceForm();
-      location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Invoice Saved',
+        text: 'Invoice saved successfully.'
+      }).then(() => {
+        fetchData();
+        clearInvoiceForm();
+        location.reload();
+      });
     } else {
-      alert("Failed to save invoice.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Save Failed',
+        text: 'Failed to save invoice.'
+      });
     }
   } catch (error) {
     console.error("Error saving invoice:", error);
-    alert("Error saving invoice.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Error saving invoice.'
+    });
   }
 }
 
@@ -1163,17 +1233,32 @@ async function saveInvoiceSilent() {
 
 async function previewInvoice() {
   if (!selectedCustomer) {
-    alert("Please select a customer first.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Customer Selected',
+      text: 'Please select a customer first.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
   if (billItems.length === 0) {
-    alert("Add items to invoice before preview.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'No Items Added',
+      text: 'Add items to invoice before preview.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
 
   const saved = await saveInvoiceSilent();
   if (!saved) {
-    alert("Failed to save invoice. Cannot preview.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Save Failed',
+      text: 'Failed to save invoice. Cannot preview.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
 
@@ -1233,6 +1318,28 @@ document.getElementById("addItemBtn").addEventListener("click", addItemToBill);
 document.getElementById("btnSave").addEventListener("click", saveInvoice);
 document.getElementById("btnPrint").addEventListener("click", previewInvoice);
 
+// --- Debounce function and auto-search on typing item ID ---
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+document.getElementById("itemSearch").addEventListener("input", debounce(() => {
+  const val = document.getElementById("itemSearch").value.trim();
+  if (val === "") {
+    document.getElementById("itemName").innerText = "";
+    document.getElementById("itemPrice").innerText = "";
+    document.getElementById("itemStock").innerText = "";
+    selectedItem = null;
+    updateButtonsState();
+    return;
+  }
+  searchItemById();
+}, 500));
+
 // Initialize data
 fetchData();
 
@@ -1262,22 +1369,23 @@ window.onload = () => {
     generateInvoiceNo();
   });
 };
-  function logout() {
-    Swal.fire({
-        title: 'Are you sure you want to logout?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: 'Yes, Logout'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Clear token from local storage
-            localStorage.removeItem("token");
-            // Redirect to login page
-            window.location.href = "login.html";
-        }
-    });
+
+function logout() {
+  Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, Logout'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Clear token from local storage
+          localStorage.removeItem("token");
+          // Redirect to login page
+          window.location.href = "login.html";
+      }
+  });
 }
 </script>
 

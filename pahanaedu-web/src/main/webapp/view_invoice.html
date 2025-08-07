@@ -873,6 +873,15 @@
 
         <!-- Projects Analytics Dashboard App js -->
         <script src="assets/js/pages/dashboard.js"></script>
+        <script>
+   const token = localStorage.getItem("token");
+
+        // Redirect if no token
+        if (!token) {
+          window.location.href = "login.html";
+        }
+
+</script>
 <!-- JavaScript -->
 <script>
   const invoiceData = JSON.parse(localStorage.getItem("previewInvoiceData"));

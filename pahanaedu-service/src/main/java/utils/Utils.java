@@ -24,21 +24,7 @@ public class Utils {
     static final String USER = "root";
     static final String PASS = "Syndigi142^";
 
-    public List<Student> getStudents() {
-        List<Student> students = new ArrayList<>();
-        
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM students");) {
-            while (rs.next()) {
-                Student st = new Student();
-                st.setId(rs.getInt("id"));
-                st.setName(rs.getString("name"));
-                students.add(st);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return students;
-    }
+   
     
    public List<Customer> getCustomers() {
     List<Customer> customers = new ArrayList<>();
@@ -66,27 +52,7 @@ public class Utils {
     return customers;
 }
 
-    public Student getStudentById(int id) {
-        Student student = null;
-        String query = "SELECT * FROM students WHERE id = ?";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                student = new Student();
-                student.setId(rs.getInt("id"));
-                student.setName(rs.getString("name"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return student;
-    }
+   
     public Customer getCustomerById(int id) {
     Customer c = null;
     String query = "SELECT * FROM customers WHERE id = ?";
@@ -114,32 +80,7 @@ public class Utils {
     return c;
 }
     
-    public boolean createStudent(Student student) {
-        String query = "INSERT INTO students (name) VALUES (?)";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-
-            pstmt.setString(1, student.getName());
-
-            int rowsInserted = pstmt.executeUpdate();
-
-            if (rowsInserted > 0) {
-                // Retrieve auto-generated ID
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        student.setId(generatedKeys.getInt(1));
-                    }
-                }
-                return true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
+  
     public boolean createCustomer(Customer c) {
     String query = "INSERT INTO customers (name, email, address, mobile, unit_consumed) VALUES (?, ?, ?, ?, ?)";
 
@@ -169,22 +110,7 @@ public class Utils {
 
     return false;
 }
-    public boolean updateStudent(Student student) {
-        String query = "UPDATE students SET name = ? WHERE id = ?";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setString(1, student.getName());
-            pstmt.setInt(2, student.getId());
-            int rowsUpdated = pstmt.executeUpdate();
-            return rowsUpdated > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
+   
 public boolean updateCustomer(Customer c) {
     String query = "UPDATE customers SET name = ?, email = ?, address = ?, mobile = ?, unit_consumed = ? WHERE id = ?";
 
@@ -206,21 +132,7 @@ public boolean updateCustomer(Customer c) {
 
     return false;
 }
-    public boolean deleteStudent(int id) {
-        String query = "DELETE FROM students WHERE id = ?";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setInt(1, id);
-            int rowsDeleted = pstmt.executeUpdate();
-            return rowsDeleted > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
+   
     public boolean deleteCustomer(int id) {
     String query = "DELETE FROM customers WHERE id = ?";
 
@@ -498,5 +410,118 @@ public boolean authenticateUser(String username, String password) {
         }
         return lastId;
     }
+public List<Bill> getBills() {
+    List<Bill> bills = new ArrayList<>();
 
+    String sqlBills = "SELECT b.id, b.bill_date, b.total_amount, " +
+                      "c.id as cust_id, c.name as cust_name, c.email, c.address, c.mobile " +
+                      "FROM bills b JOIN customers c ON b.customer_id = c.id ORDER BY b.id DESC";
+
+    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+         PreparedStatement stmt = conn.prepareStatement(sqlBills);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            Bill bill = new Bill();
+            bill.setId(rs.getInt("id"));
+            bill.setBillDate(rs.getTimestamp("bill_date"));
+            bill.setTotalAmount(rs.getDouble("total_amount"));
+
+            // Customer info
+            Customer customer = new Customer();
+            customer.setId(rs.getInt("cust_id"));
+            customer.setName(rs.getString("cust_name"));
+            customer.setEmail(rs.getString("email"));
+            customer.setAddress(rs.getString("address"));
+            customer.setMobile(rs.getString("mobile"));
+
+            bill.setCustomer(customer);
+
+            // Now load bill items for this bill:
+            bill.setBillItems(getBillItemsByBillId(bill.getId()));
+
+            bills.add(bill);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return bills;
+}
+
+public List<BillItem> getBillItemsByBillId(int billId) {
+    List<BillItem> billItems = new ArrayList<>();
+    String sqlBillItems = "SELECT bi.id, bi.quantity, bi.price, bi.subtotal, " +
+                          "i.id as item_id, i.name as item_name, i.price as item_price " +
+                          "FROM bill_items bi JOIN items i ON bi.item_id = i.id WHERE bi.bill_id = ?";
+
+    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+         PreparedStatement stmt = conn.prepareStatement(sqlBillItems)) {
+
+        stmt.setInt(1, billId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            BillItem bi = new BillItem();
+            bi.setId(rs.getInt("id"));
+            bi.setQuantity(rs.getInt("quantity"));
+            bi.setPrice(rs.getDouble("price"));
+            bi.setSubtotal(rs.getDouble("subtotal"));
+
+            Item item = new Item();
+            item.setId(rs.getInt("item_id"));
+            item.setName(rs.getString("item_name"));
+            item.setPrice(rs.getDouble("item_price"));
+
+            bi.setItem(item);
+
+            billItems.add(bi);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return billItems;
+}
+public Bill getBillById(int id) {
+    Bill bill = null;
+
+    String sqlBill = "SELECT b.id, b.bill_date, b.total_amount, " +
+                     "c.id as customer_id, c.name, c.email, c.address, c.mobile " +
+                     "FROM bills b " +
+                     "JOIN customers c ON b.customer_id = c.id " +
+                     "WHERE b.id = ?";
+
+    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+         PreparedStatement stmt = conn.prepareStatement(sqlBill)) {
+
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            bill = new Bill();
+            bill.setId(rs.getInt("id"));
+            bill.setBillDate(rs.getTimestamp("bill_date"));
+            bill.setTotalAmount(rs.getDouble("total_amount"));
+
+            Customer customer = new Customer();
+            customer.setId(rs.getInt("customer_id"));
+            customer.setName(rs.getString("name"));
+            customer.setEmail(rs.getString("email"));
+            customer.setAddress(rs.getString("address"));
+            customer.setMobile(rs.getString("mobile"));
+            bill.setCustomer(customer);
+
+            // Get bill items using existing method
+            List<BillItem> items = getBillItemsByBillId(id);
+            bill.setBillItems(items);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return bill;
+}
 }
