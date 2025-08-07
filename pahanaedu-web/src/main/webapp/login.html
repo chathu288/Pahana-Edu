@@ -73,34 +73,50 @@
 
     <!-- App js -->
     <script src="assets/js/app.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.getElementById("loginForm").addEventListener("submit", async function (e) {
-        e.preventDefault(); // stop default form action
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault(); // stop default form action
 
-        const username = document.getElementById("example-email").value;
-        const password = document.getElementById("example-password").value;
+    const username = document.getElementById("example-email").value;
+    const password = document.getElementById("example-password").value;
 
-        try {
-            const response = await fetch("http://localhost:8080/pahanaedu-service/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password })
+    try {
+        const response = await fetch("http://localhost:8080/pahanaedu-service/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("token", data.token); // save token
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful',
+                text: 'Redirecting...',
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "dashboard.html"; // redirect on success
             });
-
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem("token", data.token); // save token
-
-                window.location.href = "index.html"; // redirect on success
-            } else {
-                alert("Invalid credentials");
-            }
-        } catch (error) {
-            console.error("Login failed:", error);
-            alert("Login error. Try again.");
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: 'Invalid credentials. Please try again.'
+            });
         }
-    });
+    } catch (error) {
+        console.error("Login failed:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Login error. Please try again later.'
+        });
+    }
+});
 </script>
 </body>
 

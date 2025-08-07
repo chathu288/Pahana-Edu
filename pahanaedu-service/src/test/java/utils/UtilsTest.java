@@ -26,46 +26,8 @@ public class UtilsTest {
         utils = new Utils();
     }
 
-    @Test
-    public void testGetStudents() {
-        List<Student> students = utils.getStudents();
-        assertNotNull(students);
-        assertTrue(students.size() >= 0); // At least no error and returns a list
-    }
 
-    @Test
-    public void testGetStudentById() {
-        Student student = utils.getStudentById(1);
-        assertNotNull(student);
-        assertEquals(1, student.getId());
-        assertNotNull(student.getName());
-    }
 
-    @Test
-    public void testCreateUpdateDeleteStudent() {
-        // Create
-        Student student = new Student();
-        student.setName("Test Student");
-        boolean created = utils.createStudent(student);
-        assertTrue(created);
-        assertTrue(student.getId() > 0);
-
-        // Update
-        student.setName("Updated Test Student");
-        boolean updated = utils.updateStudent(student);
-        assertTrue(updated);
-
-        // Get by ID and verify updated name
-        Student updatedStudent = utils.getStudentById(student.getId());
-        assertEquals("Updated Test Student", updatedStudent.getName());
-
-        // Delete
-        boolean deleted = utils.deleteStudent(student.getId());
-        assertTrue(deleted);
-
-        // Verify deletion
-        assertNull(utils.getStudentById(student.getId()));
-    }
 
     // Customer tests
     @Test

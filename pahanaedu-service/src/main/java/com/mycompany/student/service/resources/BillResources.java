@@ -51,7 +51,31 @@ public class BillResources {
         return Response.ok(json.toString()).build();
     }
 
- 
-    
+   @GET
+    public Response getBills() {
+        // Return all bills JSON
+        List<Bill> bills = utils.getBills();  // Make sure you have this method implemented
+        String json = gson.toJson(bills);
+        return Response.ok(json).build();
+    }
+
+    // A test endpoint to verify the service is up
+    @GET
+    @Path("test")
+    public Response test() {
+        return Response.ok("{\"message\":\"Bills resource is working\"}").build();
+    }
+    @GET
+@Path("{id}")
+public Response getBill(@PathParam("id") int id) {
+    Bill bill = utils.getBillById(id);
+    if (bill != null) {
+        return Response.ok(gson.toJson(bill)).build();
+    } else {
+        return Response.status(Response.Status.NOT_FOUND)
+                       .entity("{\"error\":\"Bill not found\"}")
+                       .build();
+    }
+}
 
 }

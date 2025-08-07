@@ -246,8 +246,16 @@
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
             <div class="page-content">
-       <div class="container mt-5">
-    <h3 class="mb-4">Add New Customer</h3>
+                  <div class="page-container">
+
+     <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header border-bottom border-dashed d-flex align-items-center">
+          <h4 class="header-title">Add New Customer</h4>
+        </div>
+
+        <div class="card-body">
     <form id="customerForm" onsubmit="addCustomer(event)">
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -284,6 +292,10 @@
 
     <div id="alertBox" class="alert mt-4 d-none" role="alert"></div>
 </div>
+      </div>
+    </div>
+     </div>
+                  </div>
 
                 <!-- Footer Start -->
                 <footer class="footer">
@@ -828,6 +840,7 @@ function logout() {
     });
 }
 </script>
+
     </body>
 
 </html>
