@@ -71,12 +71,15 @@ public class BillDAOTest {
     public void tearDown() {
         // TODO: Ideally add deleteBill and deleteBillItems methods for proper cleanup.
         // For now, just delete test item and customer.
-        if (testItem != null && testItem.getId() > 0) {
-            itemDAO.deleteItem(testItem.getId());
-        }
-        if (testCustomer != null && testCustomer.getId() > 0) {
-            customerDAO.deleteCustomer(testCustomer.getId());
-        }
+       if (testBill != null && testBill.getId() > 0) {
+        billDAO.deleteBill(testBill.getId());
+    }
+    if (testItem != null && testItem.getId() > 0) {
+        itemDAO.deleteItem(testItem.getId());
+    }
+    if (testCustomer != null && testCustomer.getId() > 0) {
+        customerDAO.deleteCustomer(testCustomer.getId());
+    }
     }
 
     @Test

@@ -195,4 +195,45 @@ public class BillDAO {
         }
         return bill;
     }
+     public boolean deleteBillItemsByBillId(int billId) {
+        String deleteBillItemsSQL = "DELETE FROM bill_items WHERE bill_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(deleteBillItemsSQL)) {
+            stmt.setInt(1, billId);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteBill(int billId) {
+        String deleteBillSQL = "DELETE FROM bills WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // Delete bill items first (due to FK constraints)
+            if (!deleteBillItemsByBillId(billId)) {
+                conn.rollback();
+                return false;
+            }
+
+            try (PreparedStatement stmt = conn.prepareStatement(deleteBillSQL)) {
+                stmt.setInt(1, billId);
+                int affectedRows = stmt.executeUpdate();
+                if (affectedRows == 0) {
+                    conn.rollback();
+                    return false;
+                }
+            }
+
+            conn.commit();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
