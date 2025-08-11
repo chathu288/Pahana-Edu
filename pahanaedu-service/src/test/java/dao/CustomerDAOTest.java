@@ -33,7 +33,7 @@ public class CustomerDAOTest {
     }
 
     @Test
-    public void testCreateUpdateDeleteCustomer() {
+    public void testCreateCustomer() {
         Customer customer = new Customer();
         customer.setName("Test Customer");
         customer.setEmail("test@example.com");
@@ -44,9 +44,24 @@ public class CustomerDAOTest {
         boolean created = customerDAO.createCustomer(customer);
         assertTrue(created);
         assertTrue(customer.getId() > 0);
+    }
 
+    @Test
+    public void testUpdateCustomer() {
+        // Create a customer first
+        Customer customer = new Customer();
+        customer.setName("Customer To Update");
+        customer.setEmail("update@example.com");
+        customer.setAddress("456 Update St");
+        customer.setMobile("0987654321");
+        customer.setUnit_consumed(5);
+        boolean created = customerDAO.createCustomer(customer);
+        assertTrue(created);
+
+        // Update details
         customer.setName("Updated Customer");
         customer.setUnit_consumed(10);
+
         boolean updated = customerDAO.updateCustomer(customer);
         assertTrue(updated);
 
@@ -54,6 +69,23 @@ public class CustomerDAOTest {
         assertEquals("Updated Customer", updatedCustomer.getName());
         assertEquals(10, updatedCustomer.getUnit_consumed());
 
+        // Cleanup
+        customerDAO.deleteCustomer(customer.getId());
+    }
+
+    @Test
+    public void testDeleteCustomer() {
+        // Create a customer to delete
+        Customer customer = new Customer();
+        customer.setName("Customer To Delete");
+        customer.setEmail("delete@example.com");
+        customer.setAddress("789 Delete St");
+        customer.setMobile("1122334455");
+        customer.setUnit_consumed(2);
+        boolean created = customerDAO.createCustomer(customer);
+        assertTrue(created);
+
+        // Delete and verify
         boolean deleted = customerDAO.deleteCustomer(customer.getId());
         assertTrue(deleted);
 
