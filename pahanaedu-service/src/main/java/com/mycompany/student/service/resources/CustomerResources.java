@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import utils.Customer;
-import utils.Utils;
+import models.Customer;
+import dao.CustomerDAO;
 /**
  *
  * @author ASUS TUF
@@ -21,14 +21,14 @@ public class CustomerResources {
     
     @GET
     public Response getCustomers() {
-        Utils utils = new Utils();
-        return Response.ok(new Gson().toJson(utils.getCustomers())).build();
+        CustomerDAO CustomerDAO = new CustomerDAO();
+        return Response.ok(new Gson().toJson(CustomerDAO.getCustomers())).build();
     }
 
     @GET
     @Path("{id}")
     public Response getCustomer(@PathParam("id") int id) {
-        Utils utils = new Utils();
+        CustomerDAO utils = new CustomerDAO();
         Customer customer = utils.getCustomerById(id);
         if (customer != null) {
             return Response.ok(new Gson().toJson(customer)).build();
@@ -41,7 +41,7 @@ public class CustomerResources {
 
     @POST
     public Response createCustomer(String customerJson) {
-        Utils utils = new Utils();
+        CustomerDAO utils = new CustomerDAO();
         Customer customer = new Gson().fromJson(customerJson, Customer.class);
         boolean created = utils.createCustomer(customer);
         if (created) {
@@ -58,7 +58,7 @@ public class CustomerResources {
     @PUT
     @Path("{id}")
     public Response updateCustomer(@PathParam("id") int id, String customerJson) {
-        Utils utils = new Utils();
+        CustomerDAO utils = new CustomerDAO();
         Customer customer = new Gson().fromJson(customerJson, Customer.class);
         customer.setId(id);
         boolean updated = utils.updateCustomer(customer);
@@ -74,7 +74,7 @@ public class CustomerResources {
     @DELETE
     @Path("{id}")
     public Response deleteCustomer(@PathParam("id") int id) {
-        Utils utils = new Utils();
+        CustomerDAO utils = new CustomerDAO();
         boolean deleted = utils.deleteCustomer(id);
         if (deleted) {
             return Response.noContent().build();

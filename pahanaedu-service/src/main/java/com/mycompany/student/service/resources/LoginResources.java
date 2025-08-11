@@ -6,7 +6,7 @@ package com.mycompany.student.service.resources;
 import com.google.gson.*;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-import utils.Utils;
+import dao.UserDAO;
 /**
  *
  * @author ASUS TUF
@@ -15,7 +15,7 @@ import utils.Utils;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginResources {
-      private final Utils utils = new Utils();
+      private final UserDAO utils = new UserDAO();
 
     @POST
     public Response login(String json) {

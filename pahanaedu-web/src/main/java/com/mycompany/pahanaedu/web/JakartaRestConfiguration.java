@@ -1,4 +1,4 @@
-package com.mycompany.student.web;
+package com.mycompany.pahanaedu.web;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

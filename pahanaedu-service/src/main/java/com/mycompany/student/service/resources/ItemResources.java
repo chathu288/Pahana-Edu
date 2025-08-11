@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import utils.Item;
-import utils.Utils;
+import models.Item;
+import dao.ItemDAO;
 
 /**
  *
@@ -18,7 +18,7 @@ import utils.Utils;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ItemResources {
-     private final Utils utils = new Utils();
+     private final ItemDAO utils = new ItemDAO();
     private final Gson gson = new Gson();
 
     @GET

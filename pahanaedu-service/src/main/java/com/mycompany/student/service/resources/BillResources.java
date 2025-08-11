@@ -8,8 +8,8 @@ import com.google.gson.JsonObject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import utils.Bill;
-import utils.Utils;
+import models.Bill;
+import dao.BillDAO;
 import java.util.Date;
 import java.util.List;
 /**
@@ -20,7 +20,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class BillResources {
-    private final Utils utils = new Utils();
+    private final BillDAO utils = new BillDAO();
     private final Gson gson = new Gson();
 
     @POST

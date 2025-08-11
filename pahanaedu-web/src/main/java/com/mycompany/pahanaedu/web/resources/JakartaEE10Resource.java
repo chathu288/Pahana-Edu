@@ -1,4 +1,4 @@
-package com.mycompany.student.web.resources;
+package com.mycompany.pahanaedu.web.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
