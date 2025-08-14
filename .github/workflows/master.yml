@@ -1,4 +1,4 @@
-name: Build without Tests
+name: Build and Run Tests
 
 on:
   push:
@@ -6,16 +6,29 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Build project (no tests)
-      run: |
-        echo "Building project but skipping tests"
-        # Add your build commands here, e.g.
-        # mvn clean compile
-        # npm install && npm run build
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Build project
+      run: mvn clean compile
+
+    - name: Run Mockito Tests
+      run: mvn test
