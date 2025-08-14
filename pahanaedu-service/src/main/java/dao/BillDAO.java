@@ -81,20 +81,22 @@ public class BillDAO {
         }
     }
 
-    public int getLastBillId() {
-        String query = "SELECT MAX(id) AS maxId FROM bills";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+public int getLastBillId() {
+    int lastId = 0; // default to 0 if no rows
+    String sql = "SELECT id FROM bills ORDER BY id DESC LIMIT 1"; // last inserted bill
 
-            if (rs.next()) {
-                return rs.getInt("maxId");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        if (rs.next()) { // if a row exists
+            lastId = rs.getInt("id");
         }
-        return 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return lastId;
+}
 
     public List<Bill> getBills() {
         List<Bill> bills = new ArrayList<>();

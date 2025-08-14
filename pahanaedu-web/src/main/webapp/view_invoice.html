@@ -370,11 +370,11 @@
               <tbody>
                 <tr>
                   <td class="fw-medium">Subtotal</td>
-                  <td class="text-end" id="subtotalAmount">$0.00</td>
+                  <td class="text-end" id="subtotalAmount">Rs.0.00</td>
                 </tr>
                 <tr class="border-top border-top-dashed fs-16">
                   <td class="fw-bold">Total Amount</td>
-                  <td class="fw-bold text-end" id="totalAmount">$0.00</td>
+                  <td class="fw-bold text-end" id="totalAmount">Rs.0.00</td>
                 </tr>
               </tbody>
             </table>
@@ -899,8 +899,8 @@
   document.getElementById("BNumber").innerText = "Phone: " + invoiceData.billingAddress.phone;
   document.getElementById("InvoiceNote").innerText = invoiceData.note;
 
-  document.getElementById("subtotalAmount").innerText = "$" + invoiceData.totalAmount.toFixed(2);
-  document.getElementById("totalAmount").innerText = "$" + invoiceData.totalAmount.toFixed(2);
+  document.getElementById("subtotalAmount").innerText = "Rs." + invoiceData.totalAmount.toFixed(2);
+  document.getElementById("totalAmount").innerText = "Rs." + invoiceData.totalAmount.toFixed(2);
 
   const tableBody = document.getElementById("products-list");
   invoiceData.billItems.forEach((item, index) => {
@@ -909,8 +909,8 @@
       <th scope="row">${index + 1}</th>
       <td class="text-start">${item.item.name}</td>
       <td>${item.quantity}</td>
-      <td>$${item.price.toFixed(2)}</td>
-      <td class="text-end">$${item.subtotal.toFixed(2)}</td>
+      <td>Rs.${item.price.toFixed(2)}</td>
+      <td class="text-end">Rs.${item.subtotal.toFixed(2)}</td>
     `;
     tableBody.appendChild(row);
   });
